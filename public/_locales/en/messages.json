@@ -1,8 +1,8 @@
 {
   "extName": {
-    "message": "ProxyPac"
+    "message": "Proxy Pac Switcher"
   },
   "extDescription": {
-    "message": "Setting proxy is easier if you use this"
+    "message": "Makes it easier to set up a proxy"
   }
 }
