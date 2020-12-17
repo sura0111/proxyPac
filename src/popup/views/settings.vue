@@ -1,21 +1,26 @@
 <template>
-  <v-row no-gutters class="fill-height">
+  <v-row no-gutters class="fill-height settings">
     <v-col cols="4" class="my-1">
       <v-card
-        class="mx-1 fill-height d-flex justify-center align-center"
+        class="mx-1 py-2 fill-height d-flex justify-center align-center settings_addPac"
         elevation="0"
-        color="black"
         outlined
         @click="goToAddPage"
       >
-        <span class="warning--text body-1"><v-icon small color="warning">mdi-plus</v-icon> Add New</span>
+        <span class="white--text body-1"><v-icon small color="white">mdi-plus</v-icon> Add New</span>
       </v-card>
     </v-col>
     <v-col cols="4" v-for="(item, id) in pacs" :key="id" class="my-1">
-      <v-card @click="goToEditPage(item)" class="mx-1 fill-height" elevation="0" outlined :color="color(item.name)">
-        <v-card-text class="text-center text-truncate body-1" :style="{ color: stringToShade(item.name) }">
-          <v-icon small>mdi-pencil</v-icon> {{ item.name }}
-        </v-card-text>
+      <v-card
+        @click="goToEditPage(item)"
+        class="mx-1 py-2 fill-height d-flex justify-center align-center"
+        elevation="0"
+        outlined
+        :color="color(item.name)"
+      >
+        <span class="body-1" :style="{ color: stringToShade(item.name) }">
+          <v-icon small :color="stringToShade(item.name)">mdi-pencil</v-icon> {{ item.name }}
+        </span>
       </v-card>
     </v-col>
   </v-row>
@@ -51,3 +56,10 @@ export default class Settings extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.settings {
+  &_addPac {
+    background: linear-gradient(90deg, #bf0000, #665cac);
+  }
+}
+</style>

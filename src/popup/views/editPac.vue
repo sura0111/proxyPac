@@ -26,7 +26,7 @@
         filled
         wrap="off"
         auto-grow
-        class="monospace textareaCode"
+        class="textareaCode"
         @input="edited = true"
       ></v-textarea>
     </v-col>
@@ -102,14 +102,6 @@ export default class AddPac extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-::v-deep .textareaCode textarea {
-  font-size: 14px;
-  line-height: 1rem;
-  max-height: 350px;
-}
-.monospace {
-  font-family: 'Osaka', 'Menlo', 'Courier New', Courier, monospace;
-}
 .editPac {
   pre {
     font-family: 'Osaka', 'Menlo', 'Courier New', Courier, monospace;

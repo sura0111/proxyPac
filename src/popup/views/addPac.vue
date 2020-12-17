@@ -15,7 +15,7 @@
     </v-col>
     <v-col cols="12">
       <v-textarea
-        class="mx-2"
+        class="mx-2 textareaCode"
         v-model="pac.url"
         label="Pac Url"
         aria-label="Pac Url"
@@ -23,6 +23,8 @@
         outlined
         dense
         flat
+        auto-grow
+        wrap="off"
         filled
       ></v-textarea>
     </v-col>

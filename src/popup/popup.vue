@@ -52,4 +52,10 @@ export default class Popup extends Vue {
   width: 500px;
   overflow: scroll;
 }
+::v-deep .textareaCode textarea {
+  font-size: 14px;
+  line-height: 1rem;
+  max-height: 350px;
+  font-family: 'Osaka', 'Menlo', 'Courier New', Courier, monospace;
+}
 </style>
