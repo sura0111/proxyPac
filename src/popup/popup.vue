@@ -4,7 +4,9 @@
       <v-container fluid>
         <v-row no-gutters>
           <v-col cols="12" class="mb-3 d-flex align-center">
-            <v-avatar size="30" class="mr-3"><v-img src="@/assets/logo.png"></v-img></v-avatar>
+            <v-avatar size="30" class="mr-3 pointer" @click="openGithub">
+              <v-img src="@/assets/logo.png"></v-img>
+            </v-avatar>
             <v-tabs v-model="tab">
               <v-tab v-for="(item, id) in tabs" :key="id">
                 {{ item[0] }}
@@ -45,9 +47,16 @@ export default class Popup extends Vue {
     switcher: [PAGE.switcher],
     settings: [PAGE.settings, PAGE.addPac, PAGE.editPac],
   }
+
+  openGithub() {
+    window.open('https://github.com/sura0111/proxyPac', '_blank')
+  }
 }
 </script>
 <style lang="scss" scoped>
+.pointer {
+  cursor: pointer;
+}
 .pacSwitcher {
   width: 500px;
   overflow: scroll;
