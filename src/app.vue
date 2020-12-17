@@ -1,3 +1,3 @@
 <template>
-  <div id="app"></div>
+  <v-app></v-app>
 </template>

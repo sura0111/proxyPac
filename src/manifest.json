@@ -6,12 +6,14 @@
   "default_locale": "en",
   "permissions": [
     "<all_urls>",
-    "*://*/*"
+    "*://*/*",
+    "storage",
+    "proxy"
   ],
   "icons": {
-    "16": "icons/16.png",
-    "48": "icons/48.png",
-    "128": "icons/128.png"
+    "16": "icons/white16.png",
+    "32": "icons/white32.png",
+    "128": "icons/white128.png"
   },
   "background": {
     "scripts": [
@@ -23,8 +25,9 @@
     "default_popup": "popup.html",
     "default_title": "__MSG_extName__",
     "default_icon": {
-      "19": "icons/19.png",
-      "38": "icons/38.png"
+      "16": "icons/white16.png",
+      "32": "icons/white32.png",
+      "128": "icons/white128.png"
     }
   }
 }
