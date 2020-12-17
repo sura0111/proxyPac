@@ -35,7 +35,7 @@ const state = Vue.observable<{ isReady: boolean; pacs: Pacs; pac: Pac }>({
   set pac(value) {
     privateState.pac = value
     chrome.storage.sync.set({ [KEY.pac]: value })
-    setProxy(value.url)
+    setProxy(value.url).then(() => chrome.tabs.reload())
   },
 })
 
