@@ -67,15 +67,7 @@ export default class Switcher extends Vue {
   }
 
   set pacId(value: number) {
-    try {
-      if (value === 0) {
-        this.$s.state.pac = { name: KEY.systemDefault }
-      } else {
-        this.$s.state.pac = this.pacs[value - 1]
-      }
-    } catch (error) {
-      console.log('is invalid', value)
-    }
+    this.$s.state.pac = value === 0 ? { name: KEY.systemDefault } : this.pacs[value - 1]
   }
 }
 </script>

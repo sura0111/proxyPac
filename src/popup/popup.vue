@@ -23,6 +23,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { PAGE } from '@/constants'
 
 @Component
 export default class Popup extends Vue {
@@ -40,7 +41,10 @@ export default class Popup extends Vue {
     }
   }
 
-  tabs: { [index: string]: string[] } = { switcher: ['switcher'], settings: ['settings', 'addPac', 'editPac'] }
+  tabs: { [index: string]: string[] } = {
+    switcher: [PAGE.switcher],
+    settings: [PAGE.settings, PAGE.addPac, PAGE.editPac],
+  }
 }
 </script>
 <style lang="scss" scoped>

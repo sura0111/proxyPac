@@ -12,7 +12,7 @@
       </v-card>
     </v-col>
     <v-col cols="4" v-for="(item, id) in pacs" :key="id" class="my-1">
-      <v-card @click="edit(item)" class="mx-1 fill-height" elevation="0" outlined :color="color(item.name)">
+      <v-card @click="goToEditPage(item)" class="mx-1 fill-height" elevation="0" outlined :color="color(item.name)">
         <v-card-text class="text-center text-truncate body-1" :style="{ color: stringToShade(item.name) }">
           <v-icon small>mdi-pencil</v-icon> {{ item.name }}
         </v-card-text>
@@ -27,6 +27,7 @@ import Component from 'vue-class-component'
 import { Dictionary } from 'vue-router/types/router'
 import stringToColor from 'string-to-color'
 import stringToShade from '@/utils/stringToShade'
+import { PAGE } from '@/constants'
 
 @Component
 export default class Settings extends Vue {
@@ -34,7 +35,7 @@ export default class Settings extends Vue {
     return this.$s.getter.sortedPacs
   }
   goToAddPage() {
-    this.$router.push({ name: 'addPac' })
+    this.$router.push({ name: PAGE.addPac })
   }
 
   color(name: string) {
@@ -45,8 +46,8 @@ export default class Settings extends Vue {
     return stringToShade(name)
   }
 
-  edit(pac: { name: string; url: string }) {
-    this.$router.push({ name: 'editPac', params: ({ pac } as unknown) as Dictionary<string> })
+  goToEditPage(pac: { name: string; url: string }) {
+    this.$router.push({ name: PAGE.editPac, params: ({ pac } as unknown) as Dictionary<string> })
   }
 }
 </script>

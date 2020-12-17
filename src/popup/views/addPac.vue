@@ -36,6 +36,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import { PAGE } from '@/constants'
 
 @Component
 export default class AddPac extends Vue {
@@ -62,7 +63,7 @@ export default class AddPac extends Vue {
   }
 
   goToSettingsTop() {
-    return this.$router.push({ name: 'settings' })
+    return this.$router.push({ name: PAGE.settings })
   }
 }
 </script>

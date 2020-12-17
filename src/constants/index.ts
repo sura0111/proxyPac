@@ -3,3 +3,10 @@ export enum KEY {
   pac = 'pac',
   systemDefault = 'System Default',
 }
+
+export enum PAGE {
+  addPac = 'addPac',
+  editPac = 'editPac',
+  settings = 'settings',
+  switcher = 'switcher',
+}

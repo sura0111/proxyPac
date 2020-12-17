@@ -1,8 +1,7 @@
 import Vue, { PluginObject } from 'vue'
 import { KEY } from '@/constants'
 import axios from 'axios'
-import setProxy from '../utils/setProxy'
-import logo from '@/assets/logo.png'
+import setProxy from '@/utils/setProxy'
 
 type Pac = { name: string; url?: string }
 type Pacs = Pac[]
@@ -37,8 +36,6 @@ const state = Vue.observable<{ isReady: boolean; pacs: Pacs; pac: Pac }>({
     privateState.pac = value
     chrome.storage.sync.set({ [KEY.pac]: value })
     setProxy(value.url)
-    console.log(logo)
-    // chrome.browserAction.setIcon({ imageData: })
   },
 })
 
@@ -89,7 +86,7 @@ const store = {
   editPac: async ({ name, url }: { name: string; url: string }, oldData?: { name?: string | null }) => {
     if (oldData?.name && name !== oldData.name) {
       const deleteIndex = getter.getPacIndex(oldData.name)
-      console.log(deleteIndex)
+
       if (deleteIndex !== null) {
         const pacs = state.pacs.slice()
         pacs.splice(deleteIndex, 1)
@@ -117,7 +114,6 @@ const store = {
     const newPacs = state.pacs.slice()
     newPacs.splice(index, 1)
     state.pacs = newPacs
-    console.log(state.pacs, index)
   },
 }
 
