@@ -36,36 +36,39 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
 import { PAGE } from '@/constants'
+import { computed, defineComponent, ref } from '@vue/composition-api'
+import { Pac } from '../definitions/pac'
+import { usePacService } from '../services/pacService'
+import { useRouter } from '@/vendors/vue-router'
 
-@Component
-export default class AddPac extends Vue {
-  getDefaultPac() {
-    return {
-      name: '',
-      url: '',
-      value: '',
+export default defineComponent({
+  name: 'AddPacPage',
+  setup() {
+    const router = useRouter()
+    const pac = ref<Required<Pac>>({ name: '', url: '' })
+    const { hasPac, addPac: add } = usePacService()
+
+    const canAdd = computed(() => {
+      return pac.value.name && pac.value.url && !hasPac(pac.value.name)
+    })
+
+    const addPac = async () => {
+      await add(pac.value)
+      pac.value = { name: '', url: '' }
+      await goToSettingsTop()
     }
-  }
-  pac: {
-    name: string
-    url: string
-  } = this.getDefaultPac()
 
-  get canAdd() {
-    return this.pac.name && this.pac.url && !this.$s.getter.hasPac(this.pac.name)
-  }
+    const goToSettingsTop = () => {
+      return router.push({ name: PAGE.settings })
+    }
 
-  async addPac() {
-    this.$s.addPac(this.pac)
-    this.pac = this.getDefaultPac()
-    await this.goToSettingsTop()
-  }
-
-  goToSettingsTop() {
-    return this.$router.push({ name: PAGE.settings })
-  }
-}
+    return {
+      pac,
+      canAdd,
+      addPac,
+      goToSettingsTop,
+    }
+  },
+})
 </script>

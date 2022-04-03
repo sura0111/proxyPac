@@ -39,37 +39,39 @@
   </v-row>
 </template>
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
 import stringToColor from 'string-to-color'
 import { KEY } from '@/constants'
 import stringToShade from '@/utils/stringToShade'
+import { computed, defineComponent } from '@vue/composition-api'
+import { usePacService } from '../services/pacService'
 
-@Component
-export default class Switcher extends Vue {
-  get systemDefault() {
-    return KEY.systemDefault
-  }
-  get pacs() {
-    return this.$s.getter.sortedPacs
-  }
+export default defineComponent({
+  name: 'SwitcherPage',
+  setup() {
+    const { sortedPacs, pac, pacs } = usePacService()
 
-  color(name: string) {
-    return stringToColor(name)
-  }
+    const color = (name: string) => {
+      return stringToColor(name)
+    }
 
-  stringToShade(name: string) {
-    return stringToShade(name)
-  }
+    const pacId = computed<number>({
+      get() {
+        return pacs.value.findIndex(({ name }) => name === pac.value.name) + 1
+      },
+      set(value) {
+        pac.value = value === 0 ? { name: KEY.systemDefault } : sortedPacs.value[value - 1]
+      },
+    })
 
-  get pacId() {
-    return name === KEY.systemDefault ? 0 : this.pacs.findIndex(({ name }) => name === this.$s.state.pac.name) + 1
-  }
-
-  set pacId(value: number) {
-    this.$s.state.pac = value === 0 ? { name: KEY.systemDefault } : this.pacs[value - 1]
-  }
-}
+    return {
+      systemDefault: KEY.systemDefault,
+      pacs: sortedPacs,
+      color,
+      stringToShade,
+      pacId,
+    }
+  },
+})
 </script>
 <style lang="scss" scoped>
 $borderColor: #3a3a3a;

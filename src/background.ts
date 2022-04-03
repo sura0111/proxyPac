@@ -1,4 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log('Hello from the background')
-})
+// const runtime = typeof chrome !== 'undefined' ? chrome.runtime : browser.runtime
+
+// runtime.onInstalled.addListener(() => {
+console.log('Hello from the background')
+// })

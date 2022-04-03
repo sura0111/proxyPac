@@ -1,5 +1,5 @@
 <template>
-  <v-app class="pacSwitcher" v-if="$s.state.isReady">
+  <v-app class="pacSwitcher" v-if="isReady">
     <v-main>
       <v-container fluid>
         <v-row no-gutters>
@@ -23,35 +23,54 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
 import { PAGE } from '@/constants'
+import { computed, defineComponent } from '@vue/composition-api'
+import { useRoute } from '@/vendors/vue-router'
+import { useRouter } from '../vendors/vue-router'
+import { usePacService } from './services/pacService'
 
-@Component
-export default class Popup extends Vue {
-  get tab() {
-    return Object.entries(this.tabs).findIndex(([_, page]) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return page.includes(this.$route.name!)
-    })
-  }
+export default defineComponent({
+  name: 'PopupPage',
+  setup() {
+    const { isReady } = usePacService()
+    const route = useRoute()
+    const router = useRouter()
 
-  set tab(value) {
-    if (value !== null) {
-      const tabName = Object.keys(this.tabs)[value]
-      this.$router.push({ name: this.tabs[tabName][0] })
+    const tabs: { [index: string]: string[] } = {
+      switcher: [PAGE.switcher],
+      settings: [PAGE.settings, PAGE.addPac, PAGE.editPac],
     }
-  }
 
-  tabs: { [index: string]: string[] } = {
-    switcher: [PAGE.switcher],
-    settings: [PAGE.settings, PAGE.addPac, PAGE.editPac],
-  }
+    const routeName = computed(() => route.value.name)
 
-  openGithub() {
-    window.open('https://github.com/sura0111/proxyPac', '_blank')
-  }
-}
+    const tab = computed<number | null>({
+      get() {
+        return Object.entries(tabs).findIndex(([_, page]) => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          return page.includes(route.value.name ?? 'none')
+        })
+      },
+      set(value) {
+        if (value !== null) {
+          const tabName = Object.keys(tabs)[value]
+          router.push({ name: tabs[tabName][0] })
+        }
+      },
+    })
+
+    const openGithub = () => {
+      window.open('https://github.com/sura0111/proxyPac', '_blank')
+    }
+
+    return {
+      tabs,
+      tab,
+      isReady,
+      routeName,
+      openGithub,
+    }
+  },
+})
 </script>
 <style lang="scss" scoped>
 .pointer {
