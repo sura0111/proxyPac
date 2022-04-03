@@ -36,6 +36,13 @@
         </v-row>
       </v-item-group>
     </v-col>
+    <v-col cols="12" v-if="!isChrome" class="pt-2">
+      <div class="text-caption">
+        Note: The ability to change proxy settings requires private window access because proxy settings affect both
+        private and non-private windows
+        <div class="font-weight-bold">Settings → Add-ons and themes (⇧⌘A)</div>
+      </div>
+    </v-col>
   </v-row>
 </template>
 <script lang="ts">
@@ -44,11 +51,13 @@ import { KEY } from '@/constants'
 import stringToShade from '@/utils/stringToShade'
 import { computed, defineComponent } from '@vue/composition-api'
 import { usePacService } from '../services/pacService'
+import IsChrome from '@/utils/isChrome'
 
 export default defineComponent({
   name: 'SwitcherPage',
   setup() {
     const { sortedPacs, pac, pacs } = usePacService()
+    const isChrome = IsChrome()
 
     const color = (name: string) => {
       return stringToColor(name)
@@ -69,6 +78,7 @@ export default defineComponent({
       color,
       stringToShade,
       pacId,
+      isChrome,
     }
   },
 })

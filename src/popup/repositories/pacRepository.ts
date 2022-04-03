@@ -3,11 +3,9 @@ import { pacConfig } from '@/popup/reactives/pacConfig'
 import setProxy from '@/utils/setProxy'
 import { reactive } from '@vue/composition-api'
 import { Pac } from '../definitions/pac'
-import { detect } from 'detect-browser'
+import IsChrome from '@/utils/isChrome'
 
-const currentBrowser = detect()
-console.log(currentBrowser?.name)
-const isChrome = currentBrowser?.name === 'chrome'
+const isChrome = IsChrome()
 const storage = isChrome ? chrome.storage : browser.storage
 const tabs = isChrome ? chrome.tabs : browser.tabs
 
@@ -48,7 +46,6 @@ export const usePacRepository = () => {
         pacConfig.isReady = true
       })
     } else {
-      console.log(browser)
       try {
         const items = await browser.storage.sync.get()
         const pacs: Pac[] = items[KEY.pacs] ?? []
@@ -56,14 +53,11 @@ export const usePacRepository = () => {
         pacConfig.pacs = pacs
         pacConfig.pac = pac
       } catch (error) {
-        console.log(error)
         pacConfig.pacs = []
         pacConfig.pac = { name: KEY.systemDefault }
       }
       pacConfig.isReady = true
     }
-
-    console.log(pacConfig)
 
     storage.onChanged.addListener((changes) => {
       if (changes[KEY.pacs] !== undefined) {

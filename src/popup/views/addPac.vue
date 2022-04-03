@@ -14,19 +14,7 @@
       ></v-text-field>
     </v-col>
     <v-col cols="12">
-      <v-textarea
-        class="mx-2 textareaCode"
-        v-model="pac.url"
-        label="Pac Url"
-        aria-label="Pac Url"
-        placeholder="URL or text"
-        outlined
-        dense
-        flat
-        auto-grow
-        wrap="off"
-        filled
-      ></v-textarea>
+      <pac-input v-model="pac.url"></pac-input>
     </v-col>
     <v-col cols="12" class="mx-2 mb-2">
       <v-btn class="mr-1" @click="addPac" elevation="0" color="primary" :disabled="!canAdd" small>Add</v-btn>
@@ -41,9 +29,13 @@ import { computed, defineComponent, ref } from '@vue/composition-api'
 import { Pac } from '../definitions/pac'
 import { usePacService } from '../services/pacService'
 import { useRouter } from '@/vendors/vue-router'
+import PacInput from '../components/pacInput.vue'
 
 export default defineComponent({
   name: 'AddPacPage',
+  components: {
+    PacInput,
+  },
   setup() {
     const router = useRouter()
     const pac = ref<Required<Pac>>({ name: '', url: '' })

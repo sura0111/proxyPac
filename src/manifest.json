@@ -30,5 +30,10 @@
       "128": "icons/white128.png"
     }
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'; img-src 'self'"
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "6ab2fc72e36b0ba074474b982bb72a6f3f0d8b10@temporary-addon",
+      "strict_min_version": "42.0"
+    }
+  }
 }

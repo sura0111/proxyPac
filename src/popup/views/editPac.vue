@@ -10,29 +10,18 @@
         dense
         flat
         filled
-        @input="edited = true"
+        @change="edited = true"
       ></v-text-field>
     </v-col>
     <v-col cols="12">
-      <v-textarea
-        v-model.trim.lazy="url"
-        label="Pac Url/Text"
-        aria-label="pac"
-        placeholder="Url or Text"
-        rows="3"
-        outlined
-        dense
-        flat
-        filled
-        wrap="off"
-        auto-grow
-        class="textareaCode"
-        @input="edited = true"
-      ></v-textarea>
+      <pac-input v-model="url" @change="edited = true"></pac-input>
     </v-col>
-    <v-col cols="12" class="d-flex justify-center">
-      <v-icon v-if="isLoadingPacValue" class="ma-3">mdi-spin mdi-loading</v-icon>
-      <pre v-else v-html="value" class="mb-2"></pre>
+    <v-col cols="12" class="d-flex justify-center" v-if="isLoadingPacValue">
+      <v-icon class="ma-3">mdi-spin mdi-loading</v-icon>
+    </v-col>
+    <v-col cols="12" v-else>
+      <span class="text-body-2">Loaded info</span>
+      <pre v-html="value" class="mb-2"></pre>
     </v-col>
     <v-col cols="12">
       <v-btn class="mr-1" @click="savePac" elevation="0" color="primary" :disabled="!canSave" small>Save</v-btn>
@@ -48,9 +37,13 @@ import { computed, defineComponent, onMounted, PropType, ref } from '@vue/compos
 import { Pac } from '../definitions/pac'
 import { usePacService } from '../services/pacService'
 import { useRouter } from '../../vendors/vue-router'
+import pacInput from '../components/pacInput.vue'
 
 export default defineComponent({
   name: 'EditPacPage',
+  components: {
+    pacInput: pacInput,
+  },
   props: {
     pac: {
       type: Object as PropType<Pac | null>,
@@ -61,7 +54,6 @@ export default defineComponent({
     const router = useRouter()
     const privateUrl = ref('')
     const isLoadingPacValue = ref(false)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const lazyTimer = ref<number | undefined>(undefined)
     const edited = ref(false)
     const name = ref('')
@@ -119,10 +111,10 @@ export default defineComponent({
       url,
       edited,
       value,
+      canSave,
       deletePac,
       savePac,
       goToSettingsTop,
-      canSave,
     }
   },
 })
