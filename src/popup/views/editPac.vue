@@ -10,29 +10,18 @@
         dense
         flat
         filled
-        @input="edited = true"
+        @change="edited = true"
       ></v-text-field>
     </v-col>
     <v-col cols="12">
-      <v-textarea
-        v-model.trim.lazy="url"
-        label="Pac Url/Text"
-        aria-label="pac"
-        placeholder="Url or Text"
-        rows="3"
-        outlined
-        dense
-        flat
-        filled
-        wrap="off"
-        auto-grow
-        class="textareaCode"
-        @input="edited = true"
-      ></v-textarea>
+      <pac-input v-model="url" @change="edited = true"></pac-input>
     </v-col>
-    <v-col cols="12" class="d-flex justify-center">
-      <v-icon v-if="isLoadingPacValue" class="ma-3">mdi-spin mdi-loading</v-icon>
-      <pre v-else v-html="value" class="mb-2"></pre>
+    <v-col cols="12" class="d-flex justify-center" v-if="isLoadingPacValue">
+      <v-icon class="ma-3">mdi-spin mdi-loading</v-icon>
+    </v-col>
+    <v-col cols="12" v-else>
+      <span class="text-body-2">Loaded info</span>
+      <pre v-html="value" class="mb-2"></pre>
     </v-col>
     <v-col cols="12">
       <v-btn class="mr-1" @click="savePac" elevation="0" color="primary" :disabled="!canSave" small>Save</v-btn>
@@ -43,63 +32,92 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import { Prop } from 'vue-property-decorator'
 import { PAGE } from '@/constants'
+import { computed, defineComponent, onMounted, PropType, ref } from '@vue/composition-api'
+import { Pac } from '../definitions/pac'
+import { usePacService } from '../services/pacService'
+import { useRouter } from '../../vendors/vue-router'
+import pacInput from '../components/pacInput.vue'
 
-@Component
-export default class AddPac extends Vue {
-  @Prop({ type: Object, default: () => null })
-  pac!: { name: string; url: string } | null
-  privateUrl = ''
-  isLoadingPacValue = false
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  lazyTimer: any = null
-  edited = false
-  name = ''
-  value = ''
-  get url() {
-    return this.privateUrl
-  }
-  set url(value) {
-    this.privateUrl = value
-    clearTimeout(this.lazyTimer)
-    this.isLoadingPacValue = true
-    this.lazyTimer = setTimeout(async () => {
-      this.value = await this.$s.getPacValue(this.privateUrl)
-      this.isLoadingPacValue = false
-    }, 1000)
-  }
+export default defineComponent({
+  name: 'EditPacPage',
+  components: {
+    pacInput: pacInput,
+  },
+  props: {
+    pac: {
+      type: Object as PropType<Pac | null>,
+      default: () => null,
+    },
+  },
+  setup(props) {
+    const router = useRouter()
+    const privateUrl = ref('')
+    const isLoadingPacValue = ref(false)
+    const lazyTimer = ref<number | undefined>(undefined)
+    const edited = ref(false)
+    const name = ref('')
+    const value = ref('')
 
-  get canSave() {
-    return this.name && this.url && this.edited
-  }
+    const { getPacValue, editPac, deletePac: deletePacSetting } = usePacService()
 
-  async savePac() {
-    this.$s.editPac({ name: this.name, url: this.url }, { name: this.pac?.name })
-    this.goToSettingsTop()
-  }
+    const url = computed<string>({
+      get() {
+        return privateUrl.value
+      },
+      set(v) {
+        privateUrl.value = v
+        clearTimeout(lazyTimer.value)
+        isLoadingPacValue.value = true
+        lazyTimer.value = window.setTimeout(async () => {
+          value.value = await getPacValue(privateUrl.value)
+          isLoadingPacValue.value = false
+        }, 1000)
+      },
+    })
 
-  async deletePac() {
-    this.$s.deletePac(this.name)
-    this.goToSettingsTop()
-  }
+    const canSave = computed(() => {
+      return name.value && url.value && edited.value
+    })
 
-  goToSettingsTop() {
-    return this.$router.push({ name: PAGE.settings })
-  }
-
-  async mounted() {
-    if (this.pac === null) {
-      this.goToSettingsTop()
-      return
+    const goToSettingsTop = () => {
+      return router.push({ name: PAGE.settings })
     }
-    this.name = this.pac.name
-    this.privateUrl = this.pac.url
-    this.value = await this.$s.getPacValue(this.privateUrl)
-  }
-}
+
+    const savePac = async () => {
+      editPac({ name: name.value, url: url.value }, { name: props.pac?.name })
+      goToSettingsTop()
+    }
+
+    const deletePac = async () => {
+      deletePacSetting(name.value)
+      goToSettingsTop()
+    }
+
+    onMounted(async () => {
+      const pac = props.pac
+      if (!pac) {
+        goToSettingsTop()
+        return
+      }
+      name.value = pac.name
+      privateUrl.value = pac.url ?? ''
+      value.value = await getPacValue(privateUrl.value)
+    })
+
+    return {
+      name,
+      isLoadingPacValue,
+      url,
+      edited,
+      value,
+      canSave,
+      deletePac,
+      savePac,
+      goToSettingsTop,
+    }
+  },
+})
 </script>
 <style lang="scss" scoped>
 .editPac {

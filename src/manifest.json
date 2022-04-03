@@ -29,5 +29,11 @@
       "32": "icons/white32.png",
       "128": "icons/white128.png"
     }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "6ab2fc72e36b0ba074474b982bb72a6f3f0d8b10@temporary-addon",
+      "strict_min_version": "91.1.0"
+    }
   }
 }

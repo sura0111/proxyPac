@@ -16,7 +16,7 @@
         class="mx-1 py-2 fill-height d-flex justify-center align-center"
         elevation="0"
         outlined
-        :color="color(item.name)"
+        :color="stringToColor(item.name)"
       >
         <span class="body-1" :style="{ color: stringToShade(item.name) }">
           <v-icon small :color="stringToShade(item.name)">mdi-pencil</v-icon> {{ item.name }}
@@ -27,34 +27,37 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
 import { Dictionary } from 'vue-router/types/router'
 import stringToColor from 'string-to-color'
 import stringToShade from '@/utils/stringToShade'
 import { PAGE } from '@/constants'
+import { defineComponent } from '@vue/composition-api'
+import { usePacService } from '../services/pacService'
+import { useRouter } from '@/vendors/vue-router'
 
-@Component
-export default class Settings extends Vue {
-  get pacs() {
-    return this.$s.getter.sortedPacs
-  }
-  goToAddPage() {
-    this.$router.push({ name: PAGE.addPac })
-  }
+export default defineComponent({
+  name: 'SettingPage',
+  setup() {
+    const router = useRouter()
+    const { sortedPacs } = usePacService()
 
-  color(name: string) {
-    return stringToColor(name)
-  }
+    const goToAddPage = () => {
+      router.push({ name: PAGE.addPac })
+    }
 
-  stringToShade(name: string) {
-    return stringToShade(name)
-  }
+    const goToEditPage = (pac: { name: string; url: string }) => {
+      router.push({ name: PAGE.editPac, params: { pac } as unknown as Dictionary<string> })
+    }
 
-  goToEditPage(pac: { name: string; url: string }) {
-    this.$router.push({ name: PAGE.editPac, params: ({ pac } as unknown) as Dictionary<string> })
-  }
-}
+    return {
+      pacs: sortedPacs,
+      stringToColor,
+      stringToShade,
+      goToAddPage,
+      goToEditPage,
+    }
+  },
+})
 </script>
 <style lang="scss" scoped>
 .settings {

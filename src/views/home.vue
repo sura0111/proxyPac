@@ -3,8 +3,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { defineComponent } from '@vue/composition-api'
 
-@Component
-export default class Home extends Vue {}
+export default defineComponent({
+  name: 'HomePage',
+})
 </script>
