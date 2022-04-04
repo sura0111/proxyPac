@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from '@vue/composition-api'
+import { defineComponent, onMounted, ref, watch, nextTick } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'TextEditorComponent',
@@ -70,19 +70,23 @@ export default defineComponent({
     watch(
       () => props.value,
       (v) => {
-        if (v !== value.value) {
+        console.log('prop', props.value, 'value', value.value)
+        if (v.trim() !== value.value.trim()) {
+          console.log('hahaha')
           value.value = v
+          content.value = v
         }
       },
     )
 
-    const paste = (event: ClipboardEvent) => {
+    const paste = async (event: ClipboardEvent) => {
       const text = event.clipboardData?.getData('text') ?? ''
       const selection = window.getSelection()
       if (!selection?.rangeCount) return false
       selection.deleteFromDocument()
       selection.getRangeAt(0).insertNode(document.createTextNode(text))
       selection.collapseToEnd()
+      await nextTick()
       sync(event)
       event.preventDefault()
     }

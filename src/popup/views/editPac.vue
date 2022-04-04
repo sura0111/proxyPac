@@ -95,6 +95,7 @@ export default defineComponent({
     }
 
     onMounted(async () => {
+      console.log(props.pac)
       const pac = props.pac
       if (!pac) {
         goToSettingsTop()
