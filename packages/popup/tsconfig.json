@@ -6,7 +6,6 @@
     "**/*.json",
     "**/*.ts",
     "**/*.vue",
-    "./.eslintrc.cjs",
-    "./.prettierrc.json"
+    "./.eslintrc.cjs"
   ]
 }

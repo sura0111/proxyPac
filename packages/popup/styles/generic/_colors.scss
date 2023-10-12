@@ -1,0 +1,26 @@
+.pacSwitcher {
+  .color__none {
+    position: relative;
+    background-color: #555555;
+    &::before {
+      content: '';
+      position: absolute;
+      border-bottom: 3px solid #bf0000;
+      width: 100%;
+      height: 100%;
+      top: -66.6%;
+      left: 45%;
+      transform: rotate(45deg);
+      transform-origin: left;
+    }
+  }
+
+  @each $name, $color in $colors {
+    $className: #{'.color__'}#{$name};
+
+    #{$className} {
+      background-color: $color !important;
+      color: map.get($colorsText, $name) !important;
+    }
+  } 
+}

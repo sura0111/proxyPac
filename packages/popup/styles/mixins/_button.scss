@@ -1,0 +1,26 @@
+@mixin pacButton {
+  width: 100%;
+  padding: 10px 4px;
+  height: auto;
+  text-transform: none;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: none;
+  font-weight: 700;
+
+  &.v-theme--light {
+    border: 1px solid rgb(var(--v-theme-border));
+    color: rgb(var(--v-theme-primary));
+  }
+
+  &.v-theme--dark {
+    background-color: rgb(var(--v-theme-tertiary));
+  }
+
+  &--active {
+    &.v-theme--dark, &.v-theme--light {
+      background-color: rgb(var(--v-theme-primary)) !important;
+      color: rgba(var(--v-theme-on-primary)) !important;
+    }
+  }
+}
