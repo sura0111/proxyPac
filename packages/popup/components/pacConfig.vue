@@ -74,7 +74,7 @@ import { usePacConfigService, useTiptapService } from '@packages/popup/services'
 import { EditorContent } from '@tiptap/vue-3'
 import { computed, ref } from 'vue'
 import { colors } from '@packages/popup/constants'
-import { Pac } from '@packages/popup/types'
+import { type Pac } from '@packages/popup/types'
 
 const props = defineProps<{ pac?: Pac }>()
 const emit = defineEmits<{

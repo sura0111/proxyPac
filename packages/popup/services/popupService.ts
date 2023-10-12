@@ -1,7 +1,7 @@
 import { tabsPages, tabs } from '@packages/popup/config'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { PageName, Tab } from '@packages/popup/constants'
+import { type PageName, Tab } from '@packages/popup/constants'
 
 export const usePopupService = () => {
   const route = useRoute()

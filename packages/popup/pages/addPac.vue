@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { usePacService, useRouterService } from '@packages/popup/services'
 import PacConfig from '@packages/popup/components/pacConfig.vue'
-import { Pac } from '@packages/popup/types/pac'
+import { type Pac } from '@packages/popup/types/pac'
 
 const { addPac } = await usePacService()
 const { goToSettingsTop } = useRouterService()

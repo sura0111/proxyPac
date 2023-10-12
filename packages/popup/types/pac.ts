@@ -1,4 +1,4 @@
-import { Color } from '@packages/popup/constants'
+import { type Color } from '@packages/popup/constants'
 
 export type Pac<T extends string | undefined = string | undefined> = T extends undefined
   ? { name: null; color?: never; url?: never }

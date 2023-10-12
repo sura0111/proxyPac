@@ -10,13 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { Pac } from '@packages/popup/types'
+import { type Pac } from '@packages/popup/types'
 
 defineProps<{ pac: Pac; active?: boolean | undefined }>()
 
-defineEmits<{
-  (event: 'click', value: Pac): void
-}>()
+defineEmits<(event: 'click', value: Pac) => void>()
 </script>
 
 <style lang="scss" scoped>

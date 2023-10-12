@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { Pac } from '@packages/popup/types'
+import { type Pac } from '@packages/popup/types'
 import { usePacService } from '@packages/popup/services/pacService'
 import PacConfig from '@packages/popup/components/pacConfig.vue'
 import { useRouterService } from '@packages/popup/services/routerService'

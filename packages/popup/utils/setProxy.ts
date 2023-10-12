@@ -1,10 +1,10 @@
 import { detectChrome } from '@packages/core/utils'
 import browser from 'webextension-polyfill'
 
-export const setProxy = (pac?: string): Promise<void> => {
+export const setProxy = async (pac?: string): Promise<void> => {
   const isChrome = detectChrome()
 
-  return new Promise((resolve) => {
+  await new Promise((resolve) => {
     try {
       if (!pac) {
         if (isChrome) {

@@ -1,6 +1,9 @@
 {
   "name": "@packages/popup",
   "type": "module",
+  "scripts": {
+    "lint": "yarn g:lint"
+  },
   "devDependencies": {
     "@mdi/font": "^7.2.96",
     "@packages/core": "workspace:^",

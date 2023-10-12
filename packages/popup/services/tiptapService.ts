@@ -1,6 +1,6 @@
 import { CodeBlock, Document, Placeholder, Text } from '@packages/popup/lib/tiptap'
-import { Editor, EditorOptions } from '@tiptap/vue-3'
-import { Ref, onMounted, onUnmounted, ref, watch } from 'vue'
+import { Editor, type EditorOptions } from '@tiptap/vue-3'
+import { type Ref, onMounted, onUnmounted, ref, watch } from 'vue'
 
 export const useTiptapService = (content: Ref<string>, options?: Partial<EditorOptions>) => {
   const editor: Ref<Editor | null> = ref(null)

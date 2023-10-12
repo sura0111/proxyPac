@@ -1,4 +1,4 @@
-import { LocalStorageKey, LocalStorage } from '@packages/popup/constants/localStorage'
+import { type LocalStorageKey, type LocalStorage } from '@packages/popup/constants/localStorage'
 
 export const localStorage = {
   getItem: <T extends LocalStorageKey = LocalStorageKey, D extends LocalStorage[T] | null = LocalStorage[T] | null>(

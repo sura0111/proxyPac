@@ -1,8 +1,8 @@
 import browser from 'webextension-polyfill'
 import { browserStorageReactive } from '@packages/popup/reactives'
-import { BrowserStorageKey } from '@packages/popup/constants'
+import { type BrowserStorageKey } from '@packages/popup/constants'
 import { computed } from 'vue'
-import { BrowserStorage } from '../definitions/browser'
+import { type BrowserStorage } from '../definitions/browser'
 
 export const createReactiveBrowserStorage = async <
   T extends BrowserStorageKey,
@@ -18,9 +18,9 @@ export const createReactiveBrowserStorage = async <
     get: () => {
       return (browserStorageReactive[key] ?? options?.defaultValue) as D
     },
-    set: (value) => {
+    set: async (value) => {
       browserStorageReactive[key] = value
-      browser.storage.sync.set({ [key]: value })
+      await browser.storage.sync.set({ [key]: value })
     },
   })
 

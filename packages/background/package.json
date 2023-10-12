@@ -1,3 +1,6 @@
 {
-  "name": "@packages/background"
+  "name": "@packages/background",
+  "scripts": {
+    "lint": "yarn g:lint"
+  }
 }

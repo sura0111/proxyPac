@@ -27,17 +27,17 @@ const route = useRoute()
 const isChrome = detectChrome()
 const { defaultPac, sortedPacs, pac, usePac } = await usePacService()
 
-usePac(pac.value, !route.meta.previousRouteName)
+await usePac(pac.value, !route.meta.previousRouteName)
 
 const pacId = computed<number>({
-  get() {
+  get: () => {
     return sortedPacs.value.findIndex(({ name }) => name === pac.value.name) + 1
   },
-  set(value) {
+  set: async (value) => {
     if (value === 0) {
-      usePac(defaultPac)
+      await usePac(defaultPac)
     } else {
-      usePac(sortedPacs.value[value - 1])
+      await usePac(sortedPacs.value[value - 1])
     }
   },
 })

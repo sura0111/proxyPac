@@ -3,7 +3,7 @@
   "main": "./index.cjs",
   "type": "module",
   "scripts": {
-    "test": ""
+    "lint": "yarn g:lint"
   },
   "devDependencies": {
     "@html-eslint/eslint-plugin": "^0.19.1",

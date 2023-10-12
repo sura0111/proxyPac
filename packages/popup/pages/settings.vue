@@ -6,7 +6,7 @@
       </vBtn>
     </div>
     <div><vDivider class="my-4"></vDivider></div>
-    <vRow>
+    <vRow no-gutters>
       <vCol v-for="(pac, id) in sortedPacs" :key="id" cols="4">
         <PacItem :pac="pac" @click="goToEditPage">
           <template #prepend><vIcon icon="mdi-pencil" size="sm"></vIcon></template>

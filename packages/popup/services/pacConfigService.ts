@@ -1,5 +1,5 @@
 import { createBounce, getCodeWithPreWrapper } from '@packages/popup/lib'
-import { Color, PacType, pacDefaultValues } from '@packages/popup/constants'
+import { type Color, PacType, pacDefaultValues } from '@packages/popup/constants'
 import { ref, watch, computed } from 'vue'
 import { usePacService } from './pacService'
 
@@ -43,7 +43,8 @@ export const usePacConfigService = async () => {
       isFailedFetchingPacView.value = false
       bounce(async () => {
         try {
-          pacViewValue.value = (await pacService.getPacValue(pacRawValue.value)).trim()
+          const promisedPacValue = await pacService.getPacValue(pacRawValue.value)
+          pacViewValue.value = promisedPacValue.trim()
         } catch (error) {
           isFailedFetchingPacView.value = true
         }

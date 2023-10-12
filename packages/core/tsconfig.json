@@ -24,7 +24,8 @@
     "**/*.js",
     "**/*.json",
     "**/*.ts",
-    "**/*.vue"
+    "**/*.vue",
+    ".eslintrc.cjs"
   ],
   "exclude": ["node_modules"]
 }

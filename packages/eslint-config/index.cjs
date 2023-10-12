@@ -52,5 +52,6 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
     'vue/first-attribute-linebreak': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
   },
 }

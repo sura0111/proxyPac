@@ -4,15 +4,16 @@ import { createReactiveBrowserStorage } from '@packages/popup/lib'
 import { BrowserStorageKey } from '@packages/popup/constants'
 import { setProxy } from '@packages/popup/utils'
 import browser from 'webextension-polyfill'
-import { Pac } from '@packages/popup/types'
+import { type Pac } from '@packages/popup/types'
 
 export const usePacService = async () => {
-  const defaultPac: Pac = { name: null }
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  const defaultPac: Pac = { name: null } as Pac
   const pacs = await createReactiveBrowserStorage(BrowserStorageKey.pacs, {
     defaultValue: [] as Pac[],
   })
 
-  const pac = await createReactiveBrowserStorage(BrowserStorageKey.pac, { defaultValue: <Pac>{ name: null } })
+  const pac = await createReactiveBrowserStorage(BrowserStorageKey.pac, { defaultValue: defaultPac })
 
   const sortedPacs = computed(() => {
     const sortedPacs = [...pacs.value].sort((a, b) => {

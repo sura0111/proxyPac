@@ -1,5 +1,19 @@
 {
   "extends": "@packages/core",
+  "references": [
+    {
+      "path": "packages/background"
+    },
+    {
+      "path": "packages/core"
+    },
+    {
+      "path": "packages/eslint-config"
+    },
+    {
+      "path": "packages/popup"
+    }
+  ],
   "include": [
     "**/*.cjs",
     "**/*.js",
