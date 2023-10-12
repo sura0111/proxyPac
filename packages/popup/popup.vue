@@ -4,9 +4,6 @@
       <vContainer fluid>
         <vRow no-gutters>
           <vCol cols="12" class="mb-3 d-flex align-center">
-            <vAvatar size="24" class="mr-3 pointer" @click="openGithub">
-              <vImg :src="logos[computedCurrentTheme]"></vImg>
-            </vAvatar>
             <vTabs v-model="tab" color="primary">
               <vTab v-for="(tabEnum, id) in tabs" :key="id" class="pacSwitcher__tab">{{ tabNames[tabEnum] }}</vTab>
             </vTabs>
@@ -39,6 +36,9 @@
                   </vListItem>
                 </vList>
               </vMenu>
+              <vBtn icon variant="text" size="32" @click="openGithub">
+                <vIcon icon="mdi-github"></vIcon>
+              </vBtn>
             </div>
           </vCol>
           <vCol cols="12">
@@ -57,7 +57,6 @@
   </vApp>
 </template>
 <script setup lang="ts">
-import { logos } from '@packages/popup/constants'
 import { usePopupService, useThemeService } from '@packages/popup/services'
 import { tabNames } from './config/tabs'
 import 'highlight.js/styles/atom-one-dark.css'
@@ -66,7 +65,7 @@ import hljs from 'highlight.js'
 hljs.highlightAll()
 
 const { openGithub, tab, tabs } = usePopupService()
-const { currentTheme, loadTheme, computedCurrentTheme } = useThemeService()
+const { currentTheme, loadTheme } = useThemeService()
 
 loadTheme()
 </script>
