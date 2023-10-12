@@ -7,20 +7,11 @@
   border-radius: 4px;
   box-shadow: none;
   font-weight: 700;
-
-  &.v-theme--light {
-    border: 1px solid rgb(var(--v-theme-border));
-    color: rgb(var(--v-theme-primary));
-  }
-
-  &.v-theme--dark {
-    background-color: rgb(var(--v-theme-tertiary));
-  }
+  background-color: rgb(var(--v-theme-tertiary));
+  color: rgb(var(--v-theme-on-tertiary));
 
   &--active {
-    &.v-theme--dark, &.v-theme--light {
-      background-color: rgb(var(--v-theme-primary)) !important;
-      color: rgba(var(--v-theme-on-primary)) !important;
-    }
+    background-color: rgb(var(--v-theme-primary)) !important;
+    color: rgba(var(--v-theme-on-primary)) !important;
   }
 }

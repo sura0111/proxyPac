@@ -11,32 +11,24 @@
             <div>
               <vMenu location="bottom">
                 <template #activator="{ props }">
-                  <vBtn icon v-bind="props" color="text" variant="text" size="32" elevation="0"
-                    ><vIcon icon="mdi-brightness-4"></vIcon
-                  ></vBtn>
+                  <vBtn v-bind="props" variant="text" elevation="0">
+                    <vIcon icon="mdi-brightness-4"></vIcon>
+                    <span class="mx-1">{{ themeConfigs[currentTheme].text }}</span>
+                    <VIcon icon="mdi-chevron-down"></VIcon>
+                  </vBtn>
                 </template>
                 <vList density="compact">
                   <vListItem
-                    :class="{ 'languageSelector__item--selected': currentTheme === null }"
-                    @click="currentTheme = null"
+                    v-for="{ text, value } in themeConfigs"
+                    :key="value"
+                    :class="{ 'themeSelector__item--selected': currentTheme === value }"
+                    @click="currentTheme = value"
                   >
-                    System
-                  </vListItem>
-                  <vListItem
-                    :class="{ 'languageSelector__item--selected': currentTheme === 'light' }"
-                    @click="currentTheme = 'light'"
-                  >
-                    Light
-                  </vListItem>
-                  <vListItem
-                    :class="{ 'languageSelector__item--selected': currentTheme === 'dark' }"
-                    @click="currentTheme = 'dark'"
-                  >
-                    Dark
+                    {{ text }}
                   </vListItem>
                 </vList>
               </vMenu>
-              <vBtn icon variant="text" size="32" @click="openGithub">
+              <vBtn icon variant="text" size="32" class="ml-1" @click="openGithub">
                 <vIcon icon="mdi-github"></vIcon>
               </vBtn>
             </div>
@@ -61,6 +53,7 @@ import { usePopupService, useThemeService } from '@packages/popup/services'
 import { tabNames } from './config/tabs'
 import 'highlight.js/styles/atom-one-dark.css'
 import hljs from 'highlight.js'
+import { themeConfigs } from '@packages/popup/constants'
 
 hljs.highlightAll()
 
@@ -74,7 +67,7 @@ loadTheme()
 
 .pacSwitcher {
   width: 500px;
-  min-height: 400px;
+  min-height: 480px;
   overflow: scroll;
   font-size: 16px;
   font-family: 'Roboto', 'Noto Sans JP', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -84,13 +77,9 @@ loadTheme()
     display: flex;
     justify-content: center;
   }
-
-  &__tab {
-    text-transform: none;
-  }
 }
 
-.languageSelector {
+.themeSelector {
   &__item {
     &--selected {
       color: rgb(var(--v-theme-primary));

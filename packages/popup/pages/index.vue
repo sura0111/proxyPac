@@ -54,9 +54,5 @@ $borderColor: #3a3a3a;
   &__badge {
     width: 100%;
   }
-
-  &__button {
-    @include pacButton();
-  }
 }
 </style>

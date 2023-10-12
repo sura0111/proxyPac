@@ -8,6 +8,20 @@ import { getBrowserTheme } from '@packages/core/utils'
 export const vuetify = createVuetify({
   components,
   directives,
+  defaults: {
+    VBtn: {
+      class: ['s_textTransform__none'],
+    },
+    VTab: {
+      class: ['s_textTransform__none'],
+    },
+    VBtnToggle: {
+      style: [{ borderRadius: '10px' }],
+    },
+    VInput: {
+      style: [{ borderRadius: '10px' }],
+    },
+  },
   theme: {
     defaultTheme: getBrowserTheme(),
     themes: {

@@ -7,7 +7,7 @@
         class="pacConfig__input"
         variant="plain"
         density="compact"
-        placeholder="..."
+        placeholder="pacSwitcher"
         :rules="nameRules"
       ></VTextField>
     </div>
@@ -59,7 +59,7 @@
       ></EditorContent>
     </div>
     <div class="pacConfig__actions">
-      <VBtn class="mr-1" color="primary" :disabled="!isValid" type="submit">Save</VBtn>
+      <VBtn class="mr-1 pacConfig__button--important" color="primary" :disabled="!isValid" type="submit">Save</VBtn>
       <VBtn elevation="0" variant="text" size="small" @click="onCancel">Cancel</VBtn>
       <VSpacer></VSpacer>
       <VBtn v-if="isEditMode" icon color="secondary" size="32" elevation="0" @click="onSubmit({ name })">
@@ -172,6 +172,7 @@ const onCancel = () => {
 
     :deep(.hljs) {
       min-height: 45px;
+      font-size: 0.85rem;
       border: 1px solid rgb(var(--v-theme-border));
       border-radius: 8px;
       background-color: #303135;
@@ -188,7 +189,8 @@ const onCancel = () => {
   }
 
   &__label {
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 0.85rem;
     padding-bottom: 4px;
   }
 
@@ -221,6 +223,12 @@ const onCancel = () => {
     display: flex;
     align-items: center;
     margin-top: 24px;
+  }
+
+  &__button {
+    &--important {
+      text-transform: uppercase;
+    }
   }
 }
 </style>
