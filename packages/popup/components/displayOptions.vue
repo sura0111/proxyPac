@@ -1,7 +1,7 @@
 <template>
   <div class="displayOptions">
     <div class="displayOptions__item">
-      <div class="displayOptions__name">Display:</div>
+      <div class="displayOptions__name">{{ dictionary.display }}:</div>
       <VBtnGroup density="compact" variant="outlined" divided>
         <VTooltip v-for="config in displayTypeConfigs" :key="config.type" location="bottom">
           <template #activator="{ props }">
@@ -20,7 +20,7 @@
       </VBtnGroup>
     </div>
     <div class="displayOptions__item">
-      <div class="displayOptions__name">Sort:</div>
+      <div class="displayOptions__name">{{ dictionary.sort }}:</div>
       <VBtnGroup density="compact" variant="outlined" divided>
         <VTooltip v-for="config in sortTypeConfigs" :key="config.type" location="bottom">
           <template #activator="{ props }">
@@ -42,8 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { displayTypeConfigs, sortTypeConfigs } from '@packages/popup/constants'
+import { dictionary } from '@packages/popup/constants'
 import { useDisplayOptionsService } from '@packages/popup/services'
+import { sortTypeConfigs, displayTypeConfigs } from '@packages/popup/config'
 
 const { displayType, sortType } = useDisplayOptionsService()
 </script>

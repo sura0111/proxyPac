@@ -1,5 +1,6 @@
 <template>
   <VContainer fluid>
+    <h1>PAC Configuration: Modify</h1>
     <PacConfig :pac="pac" @update:pac="onUpdatePac" @cancel="goToSettingsTop"></PacConfig>
   </VContainer>
 </template>
@@ -9,6 +10,7 @@ import { type Pac } from '@packages/popup/types'
 import { usePacService } from '@packages/popup/services/pacService'
 import PacConfig from '@packages/popup/components/pacConfig.vue'
 import { useRouterService } from '@packages/popup/services/routerService'
+import { getNewPac } from '@packages/popup/helpers/pac'
 
 const props = defineProps<{ pac: Pac }>()
 
@@ -17,7 +19,10 @@ const { goToSettingsTop } = useRouterService()
 
 const onUpdatePac = async (pac: Pac | { name: string }) => {
   if (pac.name && 'value' in pac) {
-    await editPac(pac, props.pac)
+    const newPac = getNewPac(pac)
+    if (newPac) {
+      await editPac(newPac, props.pac)
+    }
   } else if (pac.name) {
     deletePac(pac.name)
   }

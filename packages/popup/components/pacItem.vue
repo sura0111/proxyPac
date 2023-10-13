@@ -2,19 +2,24 @@
   <vBtn
     class="pacButton"
     :class="{ 'pacButton--active': active, [`color__${pac.color}`]: !!pac.color }"
-    @click="$emit('click', pac)"
+    @click="onClick(pac)"
   >
     <slot name="prepend"></slot>
-    {{ pac.name ? pac.name : 'System Default' }}
+    {{ pac.name ? pac.name : dictionary.systemDefault }}
   </vBtn>
 </template>
 
 <script setup lang="ts">
 import { type Pac } from '@packages/popup/types'
+import { dictionary } from '@packages/popup/constants'
 
 defineProps<{ pac: Pac; active?: boolean | undefined }>()
 
-defineEmits<(event: 'click', value: Pac) => void>()
+const emit = defineEmits<(event: 'click', value: Pac) => void>()
+
+const onClick = (pac: Pac) => {
+  emit('click', pac)
+}
 </script>
 
 <style lang="scss" scoped>

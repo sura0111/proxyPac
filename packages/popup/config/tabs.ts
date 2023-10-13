@@ -1,5 +1,4 @@
-import { PageName, Tab } from '@packages/popup/constants'
-import browser from 'webextension-polyfill'
+import { PageName, Tab, dictionary } from '@packages/popup/constants'
 
 export const tabs = [Tab.switcher, Tab.settings]
 
@@ -9,6 +8,6 @@ export const tabsPages = {
 }
 
 export const tabNames = {
-  [Tab.switcher]: browser.i18n.getMessage('tabSwitcher'),
-  [Tab.settings]: browser.i18n.getMessage('tabSettings'),
+  [Tab.switcher]: dictionary.tabSwitcher,
+  [Tab.settings]: dictionary.tabSettings,
 }

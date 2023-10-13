@@ -1,6 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
 @import './colors';
 
 .pacSwitcher {
+  font-family: 'Noto Sans JP', system-ui, sans-serif;
+
+  h1 {
+    font-size: 1.2rem;
+    padding-bottom: 14px;
+  }
+
   .s_textTransform__none {
     text-transform: none;
   }

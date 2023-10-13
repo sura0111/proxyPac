@@ -2,7 +2,7 @@
   <VContainer class="settings">
     <div class="my-1">
       <vBtn block color="primary" variant="tonal" @click="goToAddPage">
-        <span><vIcon size="sm" icon="mdi-plus"></vIcon> New PAC | PAC URL</span>
+        <span><vIcon size="sm" icon="mdi-plus"></vIcon> {{ dictionary.newPac }}</span>
       </vBtn>
     </div>
     <div><vDivider class="my-4"></vDivider></div>
@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import { usePacService, useRouterService } from '@packages/popup/services'
 import PacItem from '@packages/popup/components/pacItem.vue'
+import { dictionary } from '@packages/popup/constants'
 
 const { sortedPacs } = await usePacService()
 const { goToEditPage, goToAddPage } = useRouterService()

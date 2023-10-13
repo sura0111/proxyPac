@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { usePopupService, useThemeService } from '@packages/popup/services'
 import { tabNames } from './config/tabs'
-import { themeConfigs } from '@packages/popup/constants'
+import { themeConfigs } from '@packages/popup/config'
 
 const { openGithub, tab, tabs } = usePopupService()
 const { currentTheme, loadTheme } = useThemeService()

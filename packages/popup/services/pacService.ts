@@ -1,10 +1,11 @@
-import { computed } from 'vue'
-import axios from 'axios'
-import { createReactiveBrowserStorage } from '@packages/popup/repositories'
 import { BrowserStorageKey, SortType } from '@packages/popup/constants'
+import { getNewPac } from '@packages/popup/helpers'
+import { createReactiveBrowserStorage } from '@packages/popup/repositories'
+import { type NewPac, type Pac } from '@packages/popup/types/pac'
 import { setProxy } from '@packages/popup/utils'
+import axios from 'axios'
+import { computed } from 'vue'
 import browser from 'webextension-polyfill'
-import { type Pac } from '@packages/popup/types'
 import { useDisplayOptionsService } from './displayOptionsService'
 
 export const usePacService = async () => {
@@ -34,15 +35,23 @@ export const usePacService = async () => {
     }
 
     if (sortBy === SortType.recent) {
-      console.log(target.map((p) => p.selectedAt))
-      target.sort((a, b) => {
-        if (!a.selectedAt) {
-          return -1
-        }
-        if (!b.selectedAt) {
+      return target.sort((a, b) => {
+        const aS = a.selectedAt
+        const bS = b.selectedAt
+
+        if (!aS) {
+          if (!bS) {
+            return 0
+          }
+
           return 1
         }
-        return b.selectedAt - a.selectedAt
+
+        if (!bS) {
+          return -1
+        }
+
+        return bS - aS
       })
     }
 
@@ -67,14 +76,14 @@ export const usePacService = async () => {
     return isUrl || isChromeUrl ? ((await axios.get(value, { timeout: 6000 })).data as string) : value
   }
 
-  const addPac = async (pac: Pac) => {
+  const addPac = async (pac: NewPac) => {
     if (hasPac(pac.name)) {
       return
     }
     pacs.value = [...pacs.value, pac]
   }
 
-  const editPac = async (newPac: Pac, oldData?: Pac) => {
+  const editPac = async (newPac: NewPac, oldData?: Pac) => {
     if (oldData?.name && newPac.name !== oldData.name) {
       const deleteIndex = getPacIndex(oldData.name)
 
@@ -111,13 +120,19 @@ export const usePacService = async () => {
   }
 
   const usePac = async (value: Pac, skipProxyUpdate = false) => {
-    if (pac.value.name !== value.name) {
-      pac.value = value.name ? { ...value, selectedAt: new Date().getTime() } : value
-      await editPac(pac.value)
+    const newPac = getNewPac(value, true)
+    const pacToSet = value.name ? newPac : value
+
+    if (pacToSet) {
+      pac.value = pacToSet
+    }
+
+    if (newPac) {
+      await editPac(newPac)
     }
 
     if (!skipProxyUpdate) {
-      await setProxy(value.name ? value.value ?? value.url ?? undefined : undefined)
+      await setProxy(pacToSet?.name && 'value' in pacToSet ? pacToSet?.value ?? undefined : undefined)
       browser.tabs.reload()
     }
   }

@@ -4,14 +4,14 @@
     <VContainer fluid>
       <vItemGroup v-model="pacId" mandatory>
         <vRow no-gutters class="fill-height">
-          <vCol
+          <VCol
             v-for="(item, id) in [defaultPac, ...sortedPacs]"
             :key="id"
             :cols="displayType === DisplayType.icon ? 4 : 12"
             class="switcher__item"
           >
-            <vItem v-slot="{ isSelected, toggle }">
-              <vBadge
+            <VItem v-slot="{ isSelected, toggle }">
+              <VBadge
                 :model-value="isSelected"
                 class="switcher__badge"
                 offset-x="32"
@@ -21,9 +21,9 @@
               >
                 <template v-if="isSelected" #badge>active</template>
                 <PacItem :pac="item" :active="isSelected" @click="toggle"></PacItem>
-              </vBadge>
-            </vItem>
-          </vCol>
+              </VBadge>
+            </VItem>
+          </VCol>
         </vRow>
       </vItemGroup>
       <FirefoxNote v-if="!isChrome" class="pt-2"></FirefoxNote>

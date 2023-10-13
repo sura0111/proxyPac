@@ -1,8 +1,8 @@
 {
-  "extName": {
+  "appName": {
     "message": "Proxy Pac Switcher"
   },
-  "extDescription": {
+  "appDescription": {
     "message": "Makes it easier to set up a proxy"
   },
   "tabSwitcher": {
@@ -10,5 +10,47 @@
   },
   "tabSettings": {
     "message": "Settings"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "display": {
+    "message": "Display"
+  },
+  "sort": {
+    "message": "Sort"
+  },
+  "systemDefault": {
+    "message": "System Default"
+  },
+  "light": {
+    "message": "Light"
+  },
+  "dark": {
+    "message": "Dark"
+  },
+  "system": {
+    "message": "System"
+  },
+  "newPac": {
+    "message": "New PAC | PAC URL"
+  },
+  "displayAsIconTooltip": {
+    "message": "Display as icon"
+  },
+  "displayAsListTooltip": {
+    "message": "Display as list"
+  },
+  "sortByNone": {
+    "message": "Sort by none"
+  },
+  "sortByRecent": {
+    "message": "Sort by recent"
+  },
+  "sortByAlphabet": {
+    "message": "Sort by alphabet"
   }
 }

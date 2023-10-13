@@ -7,7 +7,8 @@ export default defineManifest(async () => {
 
   return {
     manifest_version: 3,
-    name: 'proxypacswitch',
+    name: '__MSG_appName__',
+    description: '__MSG_appDescription__',
     version: `${major}.${minor}.${patch}.${label}`,
     version_name: version,
     default_locale: 'en',
@@ -20,7 +21,7 @@ export default defineManifest(async () => {
     },
     action: {
       default_popup: 'popup.html',
-      default_title: '__MSG_extName__',
+      default_title: '__MSG_appName__',
       default_icon: {
         '16': 'public/icons/white16.png',
         '32': 'public/icons/white32.png',

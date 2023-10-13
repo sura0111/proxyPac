@@ -1,5 +1,17 @@
 import { type Color, type PacType } from '@packages/popup/constants'
 
+export interface DefaultPac {
+  name: null
+}
+
+export interface NewPac {
+  name: string
+  type: PacType
+  value: string
+  color?: Color | null | undefined
+  selectedAt?: number | null | undefined
+}
+
 export type Pac<T extends string | undefined = string | undefined> = T extends undefined
   ? {
       type?: never
@@ -8,23 +20,13 @@ export type Pac<T extends string | undefined = string | undefined> = T extends u
       url?: never
       selectedAt?: never
     }
-  : {
-      name: T
-      type?: PacType | null
-      value?: string
-    } & (
+  :
+      | NewPac
       | {
-          type: PacType
-          value: string
-          color?: Color | null
-          selectedAt?: number | null
-          url?: never
-        }
-      | {
-          type: never
-          value?: string | null
+          name: T
+          type?: PacType | null | undefined
+          value?: string | null | undefined
           color?: never
           selectedAt?: never
           url: string
         }
-    )

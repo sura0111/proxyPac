@@ -1,5 +1,6 @@
 <template>
   <VContainer fluid>
+    <h1>PAC Configuration: Create</h1>
     <PacConfig @update:pac="onUpdatePac" @cancel="goToSettingsTop"></PacConfig>
   </VContainer>
 </template>

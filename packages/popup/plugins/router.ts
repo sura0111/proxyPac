@@ -20,7 +20,6 @@ export const router = createRouter({
       name: PageName.editPac,
       component: EditPac,
       props: (route) => {
-        console.log(route.query.pac)
         return { pac: JSON.parse(route.query.pac as string) }
       },
     },

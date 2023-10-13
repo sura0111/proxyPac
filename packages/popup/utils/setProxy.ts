@@ -4,7 +4,7 @@ import browser from 'webextension-polyfill'
 export const setProxy = async (pac?: string): Promise<void> => {
   const isChrome = detectChrome()
 
-  await new Promise((resolve) => {
+  await new Promise<void>((resolve) => {
     try {
       if (!pac) {
         if (isChrome) {
@@ -18,7 +18,7 @@ export const setProxy = async (pac?: string): Promise<void> => {
             })
             .then(resolve)
             .catch((error) => {
-              console.log(error)
+              console.error(error)
               resolve()
             })
         }
@@ -55,7 +55,7 @@ export const setProxy = async (pac?: string): Promise<void> => {
           })
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       resolve()
     }
   })

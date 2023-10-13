@@ -38,7 +38,7 @@ export const usePacConfigService = async () => {
   })
 
   watch(pacRawValue, () => {
-    if (pacType.value === 0 && /^https?:\/\//.test(pacRawValue.value)) {
+    if (pacType.value === PacType.url && /^https?:\/\//.test(pacRawValue.value)) {
       isRetrievingPacView.value = true
       isFailedFetchingPacView.value = false
       bounce(async () => {

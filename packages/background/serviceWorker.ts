@@ -1,1 +1,3 @@
-console.log(chrome.i18n.getMessage('extName'))
+import { dictionary } from '@packages/popup/constants'
+
+console.log(dictionary.appName)

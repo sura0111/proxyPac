@@ -40,7 +40,7 @@
       </div>
     </div>
     <div class="pacConfig__field">
-      <div class="pacConfig__label">{{ pacType === 0 ? 'URL' : 'Config' }}</div>
+      <div class="pacConfig__label">{{ pacType === PacType.url ? 'URL' : 'Config' }}</div>
       <VTextField
         v-if="pacType === 0"
         :model-value="pacValue"
@@ -53,7 +53,7 @@
       ></VTextField>
       <EditorContent v-else-if="editor" class="pacConfig__editor" :editor="editor"></EditorContent>
     </div>
-    <div v-if="pacType === 0" class="pacConfig__field">
+    <div v-if="pacType === PacType.url" class="pacConfig__field">
       <div class="pacConfig__label">Loaded Content (readonly)</div>
       <VProgressLinear v-if="isRetrievingPacView" class="my-2" indeterminate></VProgressLinear>
       <div v-else-if="isFailedFetchingPacView">Failed to load</div>
@@ -71,9 +71,9 @@
         :disabled="!isValid || !isFormValid"
         type="submit"
       >
-        Save
+        {{ dictionary.save }}
       </VBtn>
-      <VBtn elevation="0" variant="text" size="small" @click="onCancel">Cancel</VBtn>
+      <VBtn elevation="0" variant="text" size="small" @click="onCancel">{{ dictionary.cancel }}</VBtn>
       <VSpacer></VSpacer>
       <VBtn v-if="isEditMode" variant="text" color="secondary" size="32" elevation="0" @click="onSubmit({ name })">
         <VIcon icon="mdi-delete" size="small"></VIcon
@@ -86,10 +86,11 @@
 import { usePacConfigService, useTiptapService } from '@packages/popup/services'
 import { EditorContent } from '@tiptap/vue-3'
 import { computed, ref, watch } from 'vue'
-import { PacType, colors } from '@packages/popup/constants'
+import { PacType, colors, dictionary } from '@packages/popup/constants'
 import { type Pac } from '@packages/popup/types'
 import { VForm } from 'vuetify/lib/components/index.mjs'
 import { isUrl } from '@packages/popup/lib'
+import { getPacType, getPacValue } from '@packages/popup/helpers'
 
 const props = defineProps<{ pac?: Pac }>()
 const emit = defineEmits<{
@@ -112,37 +113,12 @@ const {
 } = await usePacConfigService()
 const isFormValid = ref(true)
 
-/** back compatibility */
-const getPacValue = () => {
-  if (!props.pac) {
-    return undefined
-  }
-  if (props.pac.type) {
-    return props.pac.value
-  }
-  return 'value' in props.pac ? props.pac.value : props.pac.url
-}
-
-const getPacType = () => {
-  if (props.pac?.type) {
-    return props.pac.type
-  }
-
-  const pacValue = getPacValue()
-
-  if (pacValue) {
-    return isUrl(pacValue) ? PacType.url : PacType.text
-  }
-
-  return PacType.url
-}
-
 const form = ref<VForm | null>(null)
 name.value = props.pac?.name ?? ''
 color.value = props.pac?.color ?? null
 const isEditMode = name.value.trim() !== ''
-pacType.value = getPacType()
-updatePacRawValue(getPacValue())
+pacType.value = getPacType(props.pac)
+updatePacRawValue(getPacValue(props.pac) ?? undefined)
 
 const editorContent = computed({
   get: () => {
