@@ -1,16 +1,16 @@
-import { localStorage } from '@packages/popup/lib'
-import { LocalStorageKey, Theme } from '@packages/popup/constants'
 import { getBrowserTheme } from '@packages/core/utils'
-import { computed, ref, watch } from 'vue'
+import { LocalStorageKey, Theme } from '@packages/popup/constants'
+import { createReactiveLocalStorage } from '@packages/popup/repositories'
+import { computed } from 'vue'
 import { useTheme as useVuetifyTheme } from 'vuetify'
 
 export const useThemeService = () => {
   const theme = useVuetifyTheme()
-  const currentTheme = ref(localStorage.getItem(LocalStorageKey.theme) ?? Theme.system)
 
-  watch(currentTheme, (value) => {
-    localStorage.setItem(LocalStorageKey.theme, value)
-    theme.global.name.value = value === Theme.system ? getBrowserTheme() : value
+  const currentTheme = createReactiveLocalStorage(LocalStorageKey.theme, {
+    onChange: (value) => {
+      theme.global.name.value = value === Theme.system ? getBrowserTheme() : value
+    },
   })
 
   const loadTheme = () => {

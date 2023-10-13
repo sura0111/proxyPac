@@ -1,5 +1,7 @@
 <template>
-  <PacConfig @update:pac="addPacConfiguration" @cancel="goToSettingsTop"></PacConfig>
+  <VContainer fluid>
+    <PacConfig @update:pac="onUpdatePac" @cancel="goToSettingsTop"></PacConfig>
+  </VContainer>
 </template>
 
 <script setup lang="ts">
@@ -10,10 +12,10 @@ import { type Pac } from '@packages/popup/types/pac'
 const { addPac } = await usePacService()
 const { goToSettingsTop } = useRouterService()
 
-const addPacConfiguration = async (pac: Pac | null) => {
-  if (pac) {
+const onUpdatePac = async (pac: Pac | { name: string }) => {
+  if ('value' in pac) {
     await addPac(pac)
+    await goToSettingsTop()
   }
-  await goToSettingsTop()
 }
 </script>

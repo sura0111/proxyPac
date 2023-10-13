@@ -1,5 +1,10 @@
 <template>
-  <VForm v-model="isFormValid" class="pacConfig" @submit.prevent="onSubmit({ name, value: pacValue, color })">
+  <VForm
+    ref="form"
+    v-model="isFormValid"
+    class="pacConfig"
+    @submit.prevent="onSubmit({ name, value: pacValue, color, type: pacType })"
+  >
     <div class="pacConfig__field">
       <div class="pacConfig__label">Name</div>
       <VTextField
@@ -11,16 +16,15 @@
         :rules="nameRules"
       ></VTextField>
     </div>
-    <div class="pacConfig__field d-flex">
-      <div>
+    <div class="pacConfig__field pacConfig__field--flex">
+      <div class="pacConfig__fieldItem">
         <div class="pacConfig__label">Type</div>
         <VBtnToggle v-model="pacType" color="primary" mandatory variant="outlined" density="compact">
           <VBtn>URL</VBtn>
           <VBtn>Text</VBtn>
         </VBtnToggle>
       </div>
-      <VSpacer></VSpacer>
-      <div>
+      <div class="pacConfig__fieldItem">
         <div class="pacConfig__label">Tag</div>
         <VBtnToggle v-model="colorIndex" density="compact" class="pacConfig__colors" color="text-tertiary">
           <VBtn
@@ -40,6 +44,7 @@
       <VTextField
         v-if="pacType === 0"
         :model-value="pacValue"
+        :rules="urlRules"
         class="pacConfig__input"
         variant="plain"
         density="compact"
@@ -59,10 +64,18 @@
       ></EditorContent>
     </div>
     <div class="pacConfig__actions">
-      <VBtn class="mr-1 pacConfig__button--important" color="primary" :disabled="!isValid" type="submit">Save</VBtn>
+      <VBtn
+        class="mr-1 pacConfig__button--important"
+        color="primary"
+        variant="flat"
+        :disabled="!isValid || !isFormValid"
+        type="submit"
+      >
+        Save
+      </VBtn>
       <VBtn elevation="0" variant="text" size="small" @click="onCancel">Cancel</VBtn>
       <VSpacer></VSpacer>
-      <VBtn v-if="isEditMode" icon color="secondary" size="32" elevation="0" @click="onSubmit({ name })">
+      <VBtn v-if="isEditMode" variant="text" color="secondary" size="32" elevation="0" @click="onSubmit({ name })">
         <VIcon icon="mdi-delete" size="small"></VIcon
       ></VBtn>
     </div>
@@ -72,9 +85,11 @@
 <script setup lang="ts">
 import { usePacConfigService, useTiptapService } from '@packages/popup/services'
 import { EditorContent } from '@tiptap/vue-3'
-import { computed, ref } from 'vue'
-import { colors } from '@packages/popup/constants'
+import { computed, ref, watch } from 'vue'
+import { PacType, colors } from '@packages/popup/constants'
 import { type Pac } from '@packages/popup/types'
+import { VForm } from 'vuetify/lib/components/index.mjs'
+import { isUrl } from '@packages/popup/lib'
 
 const props = defineProps<{ pac?: Pac }>()
 const emit = defineEmits<{
@@ -87,7 +102,6 @@ const {
   name,
   pacRawHtmlValue,
   pacViewHtmlValue,
-  isValid,
   isRetrievingPacView,
   isFailedFetchingPacView,
   color,
@@ -98,17 +112,37 @@ const {
 } = await usePacConfigService()
 const isFormValid = ref(true)
 
+/** back compatibility */
+const getPacValue = () => {
+  if (!props.pac) {
+    return undefined
+  }
+  if (props.pac.type) {
+    return props.pac.value
+  }
+  return 'value' in props.pac ? props.pac.value : props.pac.url
+}
+
+const getPacType = () => {
+  if (props.pac?.type) {
+    return props.pac.type
+  }
+
+  const pacValue = getPacValue()
+
+  if (pacValue) {
+    return isUrl(pacValue) ? PacType.url : PacType.text
+  }
+
+  return PacType.url
+}
+
+const form = ref<VForm | null>(null)
 name.value = props.pac?.name ?? ''
 color.value = props.pac?.color ?? null
 const isEditMode = name.value.trim() !== ''
-
-if (props.pac) {
-  if ('value' in props.pac) {
-    updatePacRawValue(props.pac.value)
-  } else if ('url' in props.pac && props.pac.url) {
-    updatePacRawValue(props.pac.url)
-  }
-}
+pacType.value = getPacType()
+updatePacRawValue(getPacValue())
 
 const editorContent = computed({
   get: () => {
@@ -142,13 +176,32 @@ const colorIndex = computed({
 const { editor } = useTiptapService(editorContent)
 const { editor: viewer } = useTiptapService(viewerContent, { editable: false })
 
-const nameRequiredRule = (value: string) => {
-  return !!value || 'name is required'
+const createRequiredRule = (target: string) => (value: string) => {
+  return !!value || `${target} is required`
 }
+
+const nameRequiredRule = createRequiredRule('name')
+
 const nameUniqueRule = (value: string) => {
   return !hasPac(value) || 'name must be unique'
 }
+
+const urlPatternRule = (value: string) => {
+  if (pacType.value === PacType.text) {
+    return true
+  }
+  return isUrl(value) || 'url is incorrect'
+}
+
 const nameRules = isEditMode ? [nameRequiredRule] : [nameRequiredRule, nameUniqueRule]
+const urlRules = [createRequiredRule('url'), urlPatternRule]
+
+const isValid = computed(() => {
+  if (isRetrievingPacView.value) {
+    return false
+  }
+  return name.value && pacValue.value && (isEditMode || !hasPac(name.value.trim()))
+})
 
 const onSubmit = (pac: Pac | { name: string }) => {
   if (!isValid.value) {
@@ -161,10 +214,16 @@ const onSubmit = (pac: Pac | { name: string }) => {
 const onCancel = () => {
   emit('cancel')
 }
+
+watch(pacType, () => {
+  form.value?.resetValidation()
+})
 </script>
 
 <style lang="scss" scoped>
 .pacConfig {
+  margin-bottom: 40px;
+
   &__editor {
     :deep(> .tiptap:focus) {
       outline: none;
@@ -194,6 +253,18 @@ const onCancel = () => {
     padding-bottom: 4px;
   }
 
+  &__field {
+    &--flex {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    &Item + &Item {
+      padding-left: 24px;
+    }
+  }
+
   &__field + &__field {
     margin-top: 12px;
   }
@@ -220,9 +291,14 @@ const onCancel = () => {
   }
 
   &__actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     display: flex;
     align-items: center;
-    margin-top: 24px;
+    padding: 4px 16px;
+    width: 100%;
+    background-color: rgb(var(--v-theme-tertiary));
   }
 
   &__button {

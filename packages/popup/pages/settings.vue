@@ -1,5 +1,5 @@
 <template>
-  <section class="settings">
+  <VContainer class="settings">
     <div class="my-1">
       <vBtn block color="primary" variant="tonal" @click="goToAddPage">
         <span><vIcon size="sm" icon="mdi-plus"></vIcon> New PAC | PAC URL</span>
@@ -13,7 +13,7 @@
         </PacItem>
       </vCol>
     </vRow>
-  </section>
+  </VContainer>
 </template>
 
 <script setup lang="ts">

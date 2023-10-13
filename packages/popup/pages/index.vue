@@ -1,18 +1,33 @@
 <template>
   <section no-gutters class="switcher">
-    <vItemGroup v-model="pacId" mandatory>
-      <vRow no-gutters class="fill-height">
-        <vCol v-for="(item, id) in [defaultPac, ...sortedPacs]" :key="id" cols="4" class="switcher__item">
-          <vItem v-slot="{ isSelected, toggle }">
-            <vBadge :model-value="isSelected" class="switcher__badge" offset-x="32" offset-y="-4" color="secondary">
-              <template v-if="isSelected" #badge>active</template>
-              <PacItem :pac="item" :active="isSelected" @click="toggle"></PacItem>
-            </vBadge>
-          </vItem>
-        </vCol>
-      </vRow>
-    </vItemGroup>
-    <FirefoxNote v-if="!isChrome" class="pt-2"></FirefoxNote>
+    <DisplayOptions class="mb-3"></DisplayOptions>
+    <VContainer fluid>
+      <vItemGroup v-model="pacId" mandatory>
+        <vRow no-gutters class="fill-height">
+          <vCol
+            v-for="(item, id) in [defaultPac, ...sortedPacs]"
+            :key="id"
+            :cols="displayType === DisplayType.icon ? 4 : 12"
+            class="switcher__item"
+          >
+            <vItem v-slot="{ isSelected, toggle }">
+              <vBadge
+                :model-value="isSelected"
+                class="switcher__badge"
+                offset-x="32"
+                offset-y="-4"
+                color="secondary"
+                location="left top"
+              >
+                <template v-if="isSelected" #badge>active</template>
+                <PacItem :pac="item" :active="isSelected" @click="toggle"></PacItem>
+              </vBadge>
+            </vItem>
+          </vCol>
+        </vRow>
+      </vItemGroup>
+      <FirefoxNote v-if="!isChrome" class="pt-2"></FirefoxNote>
+    </VContainer>
   </section>
 </template>
 <script setup lang="ts">
@@ -22,10 +37,12 @@ import { usePacService } from '@packages/popup/services/pacService'
 import { useRoute } from 'vue-router'
 import FirefoxNote from '@packages/popup/components/firefoxNote.vue'
 import PacItem from '@packages/popup/components/pacItem.vue'
+import DisplayOptions from '@packages/popup/components/displayOptions.vue'
+import { DisplayType } from '@packages/popup/constants'
 
 const route = useRoute()
 const isChrome = detectChrome()
-const { defaultPac, sortedPacs, pac, usePac } = await usePacService()
+const { defaultPac, sortedPacs, pac, usePac, displayType } = await usePacService()
 
 await usePac(pac.value, !route.meta.previousRouteName)
 

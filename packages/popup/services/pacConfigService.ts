@@ -59,16 +59,8 @@ export const usePacConfigService = async () => {
     }
   })
 
-  const isValid = computed(() => {
-    if (isRetrievingPacView.value) {
-      return false
-    }
-    return name.value && pacRawValue.value.trim() && !pacService.hasPac(name.value.trim())
-  })
-
   return {
     name,
-    isValid,
     pacType,
     pacValue: pacRawValue,
     color,

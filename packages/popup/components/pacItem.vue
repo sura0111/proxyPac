@@ -19,6 +19,19 @@ defineEmits<(event: 'click', value: Pac) => void>()
 
 <style lang="scss" scoped>
 .pacButton {
-  @include pacButton();
+  width: 100%;
+  padding: 10px 4px;
+  height: auto;
+  text-transform: none;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: none;
+  font-weight: 700;
+  background-color: rgb(var(--v-theme-tertiary));
+  color: rgb(var(--v-theme-on-tertiary));
+
+  &--active {
+    outline: 3px solid rgb(var(--v-theme-on-tertiary));
+  }
 }
 </style>

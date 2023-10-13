@@ -1,5 +1,7 @@
 <template>
-  <PacConfig :pac="pac" @update:pac="onUpdatePac" @cancel="goToSettingsTop"></PacConfig>
+  <VContainer fluid>
+    <PacConfig :pac="pac" @update:pac="onUpdatePac" @cancel="goToSettingsTop"></PacConfig>
+  </VContainer>
 </template>
 
 <script setup lang="ts">
@@ -13,7 +15,7 @@ const props = defineProps<{ pac: Pac }>()
 const { editPac, deletePac } = await usePacService()
 const { goToSettingsTop } = useRouterService()
 
-const onUpdatePac = async (pac: Pac) => {
+const onUpdatePac = async (pac: Pac | { name: string }) => {
   if (pac.name && 'value' in pac) {
     await editPac(pac, props.pac)
   } else if (pac.name) {

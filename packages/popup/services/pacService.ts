@@ -1,14 +1,16 @@
 import { computed } from 'vue'
 import axios from 'axios'
-import { createReactiveBrowserStorage } from '@packages/popup/lib'
-import { BrowserStorageKey } from '@packages/popup/constants'
+import { createReactiveBrowserStorage } from '@packages/popup/repositories'
+import { BrowserStorageKey, SortType } from '@packages/popup/constants'
 import { setProxy } from '@packages/popup/utils'
 import browser from 'webextension-polyfill'
 import { type Pac } from '@packages/popup/types'
+import { useDisplayOptionsService } from './displayOptionsService'
 
 export const usePacService = async () => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const defaultPac: Pac = { name: null } as Pac
+  const { displayType, sortType } = useDisplayOptionsService()
   const pacs = await createReactiveBrowserStorage(BrowserStorageKey.pacs, {
     defaultValue: [] as Pac[],
   })
@@ -16,17 +18,35 @@ export const usePacService = async () => {
   const pac = await createReactiveBrowserStorage(BrowserStorageKey.pac, { defaultValue: defaultPac })
 
   const sortedPacs = computed(() => {
-    const sortedPacs = [...pacs.value].sort((a, b) => {
-      if (!a.name) {
-        return 1
-      }
-      if (!b.name) {
-        return -1
-      }
-      return a.name > b.name ? 1 : -1
-    })
+    const sortBy = sortType.value
+    const target = [...pacs.value]
 
-    return sortedPacs
+    if (sortBy === SortType.alphabetic) {
+      target.sort((a, b) => {
+        if (!a.name) {
+          return 1
+        }
+        if (!b.name) {
+          return -1
+        }
+        return a.name > b.name ? 1 : -1
+      })
+    }
+
+    if (sortBy === SortType.recent) {
+      console.log(target.map((p) => p.selectedAt))
+      target.sort((a, b) => {
+        if (!a.selectedAt) {
+          return -1
+        }
+        if (!b.selectedAt) {
+          return 1
+        }
+        return b.selectedAt - a.selectedAt
+      })
+    }
+
+    return target
   })
 
   const hasPac = (name?: string | undefined | null): boolean => !!pacs.value.find((pac) => pac.name === name)
@@ -92,8 +112,10 @@ export const usePacService = async () => {
 
   const usePac = async (value: Pac, skipProxyUpdate = false) => {
     if (pac.value.name !== value.name) {
-      pac.value = value
+      pac.value = value.name ? { ...value, selectedAt: new Date().getTime() } : value
+      await editPac(pac.value)
     }
+
     if (!skipProxyUpdate) {
       await setProxy(value.name ? value.value ?? value.url ?? undefined : undefined)
       browser.tabs.reload()
@@ -105,6 +127,8 @@ export const usePacService = async () => {
     sortedPacs,
     pac,
     pacs,
+    displayType,
+    sortType,
     hasPac,
     getPacIndex,
     getPacValue,
