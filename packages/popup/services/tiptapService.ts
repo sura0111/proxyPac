@@ -24,7 +24,8 @@ export const useTiptapService = (content: Ref<string>, options?: Partial<EditorO
       ],
       ...options,
       onUpdate: (props) => {
-        content.value = props.editor.getHTML()
+        content.value = editor.value?.getHTML() ?? ''
+        console.log(content.value)
         options?.onUpdate?.(props)
       },
     })
@@ -36,7 +37,8 @@ export const useTiptapService = (content: Ref<string>, options?: Partial<EditorO
   })
 
   watch(content, () => {
-    if (editor.value?.getHTML().trim() !== content.value.trim()) {
+    // TODO: improve - remove replaceAll
+    if (editor.value?.getHTML().trim().replaceAll(' class="hljs"', '') !== content.value.trim()) {
       editor.value?.commands.setContent(content.value.trim())
     }
   })

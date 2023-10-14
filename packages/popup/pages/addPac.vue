@@ -1,21 +1,26 @@
 <template>
   <VContainer fluid>
-    <h1>PAC Configuration: Create</h1>
+    <h1>{{ dictionary.createPacConfiguration }}</h1>
     <PacConfig @update:pac="onUpdatePac" @cancel="goToSettingsTop"></PacConfig>
   </VContainer>
 </template>
 
 <script setup lang="ts">
-import { usePacService, useRouterService } from '@packages/popup/services'
 import PacConfig from '@packages/popup/components/pacConfig.vue'
-import { type Pac } from '@packages/popup/types/pac'
+import { dictionary } from '@packages/popup/constants'
+import { getNewPac } from '@packages/popup/helpers'
+import { usePacService, useRouterService } from '@packages/popup/services'
+import { type Pac } from '@packages/popup/types'
 
 const { addPac } = await usePacService()
 const { goToSettingsTop } = useRouterService()
 
 const onUpdatePac = async (pac: Pac | { name: string }) => {
   if ('value' in pac) {
-    await addPac(pac)
+    const newPac = getNewPac(pac)
+    if (newPac) {
+      await addPac(newPac)
+    }
     await goToSettingsTop()
   }
 }

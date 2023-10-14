@@ -3,7 +3,7 @@
     "message": "Proxy Pac Switcher"
   },
   "appDescription": {
-    "message": "Makes it easier to set up a proxy"
+    "message": "This extensions simplifies the process of setting up a proxy."
   },
   "tabSwitcher": {
     "message": "Switcher"
@@ -52,5 +52,11 @@
   },
   "sortByAlphabet": {
     "message": "Sort by alphabet"
+  },
+  "createPacConfiguration": {
+    "message": "Create PAC configuration"
+  },
+  "editPacConfiguration": {
+    "message": "Edit PAC configuration"
   }
 }

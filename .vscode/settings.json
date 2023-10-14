@@ -16,7 +16,7 @@
     }
   ],
   "eslint.workingDirectories": [
-    { "mode": "auto" },
+    "./"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "stylelint.stylelintPath": "./node_modules/stylelint",

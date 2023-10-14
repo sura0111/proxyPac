@@ -19,4 +19,6 @@ export const dictionary = {
   sortByNone: chrome.i18n.getMessage('sortByNone'),
   sortByRecent: chrome.i18n.getMessage('sortByRecent'),
   sortByAlphabet: chrome.i18n.getMessage('sortByAlphabet'),
+  createPacConfiguration: chrome.i18n.getMessage('createPacConfiguration'),
+  editPacConfiguration: chrome.i18n.getMessage('editPacConfiguration'),
 }

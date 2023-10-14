@@ -1,16 +1,16 @@
 <template>
   <VContainer fluid>
-    <h1>PAC Configuration: Modify</h1>
+    <h1>{{ dictionary.editPacConfiguration }}</h1>
     <PacConfig :pac="pac" @update:pac="onUpdatePac" @cancel="goToSettingsTop"></PacConfig>
   </VContainer>
 </template>
 
 <script setup lang="ts">
-import { type Pac } from '@packages/popup/types'
-import { usePacService } from '@packages/popup/services/pacService'
 import PacConfig from '@packages/popup/components/pacConfig.vue'
-import { useRouterService } from '@packages/popup/services/routerService'
-import { getNewPac } from '@packages/popup/helpers/pac'
+import { dictionary } from '@packages/popup/constants'
+import { getNewPac } from '@packages/popup/helpers'
+import { usePacService, useRouterService } from '@packages/popup/services'
+import { type Pac } from '@packages/popup/types'
 
 const props = defineProps<{ pac: Pac }>()
 

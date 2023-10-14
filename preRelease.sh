@@ -1,3 +1,6 @@
+RED='\033[0;31m'
+NO_COLOR='\033[0m'
+
 echo -e "-----------------------------------------"
 echo "[Release Process] Install packages"
 echo -e "-----------------------------------------"
@@ -23,6 +26,6 @@ echo -e "\n"
 echo -e "-----------------------------------------"
 echo "[Release Process] Check diff"
 echo -e "-----------------------------------------"
-git diff --exit-code || exit 1
+git diff --exit-code --quiet || echo -e "${RED}exit due to the presence of uncommitted files.${NO_COLOR}" && exit 1
 echo -e "\n"
 

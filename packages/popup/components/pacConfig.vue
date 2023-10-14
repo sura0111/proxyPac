@@ -75,7 +75,15 @@
       </VBtn>
       <VBtn elevation="0" variant="text" size="small" @click="onCancel">{{ dictionary.cancel }}</VBtn>
       <VSpacer></VSpacer>
-      <VBtn v-if="isEditMode" variant="text" color="secondary" size="32" elevation="0" @click="onSubmit({ name })">
+      <VBtn
+        v-if="isEditMode"
+        :disabled="isRetrievingPacView"
+        variant="text"
+        color="secondary"
+        size="32"
+        elevation="0"
+        @click="onSubmit({ name })"
+      >
         <VIcon icon="mdi-delete" size="small"></VIcon
       ></VBtn>
     </div>

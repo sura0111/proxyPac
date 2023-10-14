@@ -1,6 +1,6 @@
 <template>
   <vApp class="pacSwitcher">
-    <vMain>
+    <vMain class="pacSwitcher__main">
       <vAppBar density="compact" elevation="0" border>
         <vTabs v-model="tab" color="primary">
           <vTab v-for="(tabEnum, id) in tabs" :key="id" class="pacSwitcher__tab">{{ tabNames[tabEnum] }}</vTab>
@@ -55,11 +55,12 @@ loadTheme()
 
 <style lang="scss" scoped>
 .pacSwitcher {
-  height: auto;
   width: 500px;
+  height: auto;
   min-height: 480px;
   overflow: scroll;
   font-size: 16px;
+  border-collapse: collapse;
 
   &__fallback {
     display: flex;
