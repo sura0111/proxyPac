@@ -1,20 +1,28 @@
 echo -e "-----------------------------------------"
 echo "[Release Process] Install packages"
 echo -e "-----------------------------------------"
-yarn install
+yarn install || exit 1
 echo -e "\n"
 
 echo -e "-----------------------------------------"
 echo "[Release Process] Build"
 echo -e "-----------------------------------------"
-yarn build
+yarn build || exit 1
 echo -e "\n"
 
 echo -e "-----------------------------------------"
 echo "[Release Process] Pack"
 echo -e "-----------------------------------------"
-yarn pac
-yarn zip
+yarn rimraf artifacts
+mkdir artifacts
+yarn pack:crx
+yarn pack:zip
+mv key.pem ./artifacts/
 echo -e "\n"
 
-git diff --exit-code
+echo -e "-----------------------------------------"
+echo "[Release Process] Check diff"
+echo -e "-----------------------------------------"
+git diff --exit-code || exit 1
+echo -e "\n"
+
