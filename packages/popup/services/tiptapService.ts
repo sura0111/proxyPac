@@ -25,7 +25,6 @@ export const useTiptapService = (content: Ref<string>, options?: Partial<EditorO
       ...options,
       onUpdate: (props) => {
         content.value = editor.value?.getHTML() ?? ''
-        console.log(content.value)
         options?.onUpdate?.(props)
       },
     })
