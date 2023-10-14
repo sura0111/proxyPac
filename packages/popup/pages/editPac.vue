@@ -33,13 +33,13 @@ const onUpdatePac = async (pac: Pac | { name: string }) => {
 <style lang="scss" scoped>
 .editPac {
   pre {
-    font-family: 'Osaka', 'Menlo', 'Courier New', Courier, monospace;
     width: 100%;
     max-height: 200px;
-    overflow: scroll;
-    background-color: #333;
-    color: white;
     padding: 5px;
+    overflow: scroll;
+    font-family: Osaka, Menlo, 'Courier New', Courier, monospace;
+    color: white;
+    background-color: #333333;
     border-radius: 5px;
   }
 }

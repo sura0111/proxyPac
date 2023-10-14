@@ -25,15 +25,15 @@ const onClick = (pac: Pac) => {
 <style lang="scss" scoped>
 .pacButton {
   width: 100%;
-  padding: 10px 4px;
   height: auto;
-  text-transform: none;
+  padding: 10px 4px;
+  font-weight: 700;
+  color: rgb(var(--v-theme-on-tertiary));
   text-align: center;
+  text-transform: none;
+  background-color: rgb(var(--v-theme-tertiary));
   border-radius: 4px;
   box-shadow: none;
-  font-weight: 700;
-  background-color: rgb(var(--v-theme-tertiary));
-  color: rgb(var(--v-theme-on-tertiary));
 
   &--active {
     outline: 3px solid rgb(var(--v-theme-on-tertiary));

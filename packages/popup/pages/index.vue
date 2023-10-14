@@ -26,22 +26,18 @@
           </VCol>
         </vRow>
       </vItemGroup>
-      <FirefoxNote v-if="!isChrome" class="pt-2"></FirefoxNote>
     </VContainer>
   </section>
 </template>
 <script setup lang="ts">
-import { detectChrome } from '@packages/core/utils'
 import { computed } from 'vue'
 import { usePacService } from '@packages/popup/services/pacService'
 import { useRoute } from 'vue-router'
-import FirefoxNote from '@packages/popup/components/firefoxNote.vue'
 import PacItem from '@packages/popup/components/pacItem.vue'
 import DisplayOptions from '@packages/popup/components/displayOptions.vue'
 import { DisplayType } from '@packages/popup/constants'
 
 const route = useRoute()
-const isChrome = detectChrome()
 const { defaultPac, sortedPacs, pac, usePac, displayType } = await usePacService()
 
 await usePac(pac.value, !route.meta.previousRouteName)

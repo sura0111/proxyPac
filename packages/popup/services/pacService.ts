@@ -1,11 +1,11 @@
 import { BrowserStorageKey, SortType } from '@packages/popup/constants'
 import { getNewPac } from '@packages/popup/helpers'
+import { isUrl } from '@packages/popup/lib'
 import { createReactiveBrowserStorage } from '@packages/popup/repositories'
-import { type NewPac, type Pac } from '@packages/popup/types/pac'
+import { type NewPac, type Pac } from '@packages/popup/types'
 import { setProxy } from '@packages/popup/utils'
 import axios from 'axios'
 import { computed } from 'vue'
-import browser from 'webextension-polyfill'
 import { useDisplayOptionsService } from './displayOptionsService'
 
 export const usePacService = async () => {
@@ -70,10 +70,7 @@ export const usePacService = async () => {
       return ''
     }
 
-    const isUrl = /^https?:\/\/.+$/.test(value)
-    const isChromeUrl = /^chrome-extension:\/\/.+$/.test(value)
-
-    return isUrl || isChromeUrl ? ((await axios.get(value, { timeout: 6000 })).data as string) : value
+    return isUrl(value) ? ((await axios.get(value, { timeout: 6000 })).data as string) : value
   }
 
   const addPac = async (pac: NewPac) => {
@@ -133,7 +130,7 @@ export const usePacService = async () => {
 
     if (!skipProxyUpdate) {
       await setProxy(pacToSet?.name && 'value' in pacToSet ? pacToSet?.value ?? undefined : undefined)
-      browser.tabs.reload()
+      chrome.tabs.reload()
     }
   }
 

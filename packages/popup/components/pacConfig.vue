@@ -207,13 +207,13 @@ watch(pacType, () => {
 
     :deep(.hljs) {
       min-height: 45px;
-      font-size: 0.85rem;
-      border: 1px solid rgb(var(--v-theme-border));
-      border-radius: 8px;
-      background-color: #303135;
       padding: 8px;
       overflow: auto;
+      font-size: 0.85rem;
       white-space: pre;
+      background-color: #303135;
+      border: 1px solid rgb(var(--v-theme-border));
+      border-radius: 8px;
     }
 
     &--readonly {
@@ -224,9 +224,9 @@ watch(pacType, () => {
   }
 
   &__label {
-    font-weight: 500;
-    font-size: 0.85rem;
     padding-bottom: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
   }
 
   &__field {
@@ -247,11 +247,12 @@ watch(pacType, () => {
 
   &__input {
     :deep(.v-field) {
+      padding: 0 8px;
+      background-color: rgb(var(--v-theme-tertiary));
       border: 1px solid rgb(var(--v-theme-border));
       border-radius: 8px;
-      background-color: rgb(var(--v-theme-tertiary));
-      padding: 0 8px;
     }
+
     :deep(input) {
       padding: 8px 0;
     }
@@ -259,10 +260,11 @@ watch(pacType, () => {
 
   &__colors {
     height: 32px;
+
     .pacConfig__color {
-      border-radius: 100%;
-      padding: 0;
       width: 32px;
+      padding: 0;
+      border-radius: 100%;
     }
   }
 
@@ -272,8 +274,8 @@ watch(pacType, () => {
     left: 0;
     display: flex;
     align-items: center;
-    padding: 4px 16px;
     width: 100%;
+    padding: 4px 16px;
     background-color: rgb(var(--v-theme-tertiary));
   }
 

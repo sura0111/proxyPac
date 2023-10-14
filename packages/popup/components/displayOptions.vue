@@ -57,19 +57,19 @@ const { displayType, sortType } = useDisplayOptionsService()
   padding: 4px;
   background-color: rgb(var(--v-theme-tertiary));
 
-  &__item + &__item {
-    padding-left: 32px;
-  }
-
   &__item {
     text-align: right;
   }
 
+  &__item + &__item {
+    padding-left: 32px;
+  }
+
   &__name {
     display: inline;
+    padding-right: 8px;
     font-size: 0.8rem;
     text-transform: uppercase;
-    padding-right: 8px;
   }
 
   &__button {

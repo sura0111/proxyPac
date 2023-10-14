@@ -55,9 +55,9 @@ loadTheme()
 
 <style lang="scss" scoped>
 .pacSwitcher {
+  height: auto;
   width: 500px;
   min-height: 480px;
-  height: auto;
   overflow: scroll;
   font-size: 16px;
 
@@ -70,8 +70,8 @@ loadTheme()
 .themeSelector {
   &__item {
     &--selected {
-      color: rgb(var(--v-theme-primary));
       font-weight: 900;
+      color: rgb(var(--v-theme-primary));
     }
   }
 }

@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill'
 import { browserStorageReactive } from '@packages/popup/reactives'
 import { type BrowserStorageKey } from '@packages/popup/constants'
 import { computed } from 'vue'
@@ -20,15 +19,15 @@ export const createReactiveBrowserStorage = async <
     },
     set: async (value) => {
       browserStorageReactive[key] = value
-      await browser.storage.sync.set({ [key]: value })
+      await chrome.storage.sync.set({ [key]: value })
     },
   })
 
-  const initialValue = (((await browser.storage.sync.get(key)) as { [key in T]: D })[key] ?? options?.defaultValue) as D
+  const initialValue = (((await chrome.storage.sync.get(key)) as { [key in T]: D })[key] ?? options?.defaultValue) as D
   browserStorageReactive[key] = initialValue
   options?.onChange?.(initialValue)
 
-  browser.storage.sync.onChanged.addListener((changes) => {
+  chrome.storage.sync.onChanged.addListener((changes) => {
     if (changes[key] !== undefined) {
       const value = (changes[key].newValue ?? options?.defaultValue) as D
       browserStorageReactive[key] = value
