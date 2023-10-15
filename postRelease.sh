@@ -3,6 +3,16 @@ NO_COLOR='\033[0m'
 WORKSPACE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 echo -e "-----------------------------------------"
+echo "[Release Process] Pack"
+echo -e "-----------------------------------------"
+yarn rimraf artifacts
+mkdir artifacts
+yarn pack:crx
+yarn pack:zip
+mv key.pem ./artifacts/
+echo -e "\n"
+
+echo -e "-----------------------------------------"
 echo "[Release Process] New Version"
 echo -e "-----------------------------------------"
 echo "workspace branch: $WORKSPACE_BRANCH"
@@ -10,7 +20,7 @@ echo "workspace version: $npm_package_version"
 echo -e "\n"
 
 echo -e "-----------------------------------------"
-echo "[Release Process] Update workdspace branch"
+echo "[Release Process] Update workspace branch"
 echo -e "-----------------------------------------"
 git add -A
 git commit -m "v$npm_package_version"
