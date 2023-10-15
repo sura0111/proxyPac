@@ -3,6 +3,23 @@ NO_COLOR='\033[0m'
 WORKSPACE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 echo -e "-----------------------------------------"
+echo "[Release Process] Build"
+echo -e "-----------------------------------------"
+yarn build || exit 1
+echo -e "\n"
+
+echo -e "-----------------------------------------"
+echo "[Release Process] Check diff"
+echo -e "-----------------------------------------"
+if git diff --quiet -- . ':!package.json'; then
+  echo "No changes found except for package.json."
+else
+  echo -e "${RED}Changes found (excluding package.json). Exiting...${NO_COLOR}"
+  exit 1;
+fi
+echo -e "\n"
+
+echo -e "-----------------------------------------"
 echo "[Release Process] Pack"
 echo -e "-----------------------------------------"
 yarn rimraf artifacts
