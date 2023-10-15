@@ -1,5 +1,0 @@
-import './productionTip'
-import './compositionApi'
-import './vuetify'
-import './router'
-import './pac'

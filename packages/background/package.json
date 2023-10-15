@@ -1,0 +1,8 @@
+{
+  "name": "@packages/background",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "yarn g:lint"
+  }
+}

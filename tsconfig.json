@@ -1,48 +1,37 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "esnext",
     "module": "esnext",
-    "strict": true,
     "jsx": "preserve",
-    "importHelpers": true,
     "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "skipLibCheck": true,
     "esModuleInterop": true,
+    "resolvePackageJsonExports": false,
+    "allowJs": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "importHelpers": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": ".",
-    "types": [
-      "webpack-env",
-      "firefox-webext-browser",
-      "chrome"
-    ],
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "resolveJsonModule": true,
+    "exactOptionalPropertyTypes": true,
+    "newLine": "lf"
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "**/*.cjs",
+    "**/*.js",
+    "**/*.json",
+    "**/*.ts",
+    "**/*.vue",
+    "packages/**/*.cjs",
+    "packages/**/*.js",
+    "packages/**/*.json",
+    "packages/**/*.ts",
+    "packages/**/*.vue",
+    "./.eslintrc.cjs",
+    "./.prettierrc.json"
   ],
-  "exclude": [
-    "node_modules"
-  ],
-  "vueCompilerOptions": {
-    "experimentalCompatMode": 2,
-    "experimentalTemplateCompilerOptions": {
-      "compatConfig": { "MODE": 2 } // optional
-    }
-  }
+  "exclude": ["node_modules"]
 }

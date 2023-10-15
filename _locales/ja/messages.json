@@ -1,0 +1,68 @@
+{
+  "appName": {
+    "message": "プロキシーPACスイッチャー"
+  },
+  "appDescription": {
+    "message": "プロキシ設定を簡略化するツールです。"
+  },
+  "tabSwitcher": {
+    "message": "スイッチャー"
+  },
+  "tabSettings": {
+    "message": "設定"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "cancel": {
+    "message": "戻る"
+  },
+  "display": {
+    "message": "表示"
+  },
+  "sort": {
+    "message": "並び替え"
+  },
+  "systemDefault": {
+    "message": "システムデフォルト"
+  },
+  "light": {
+    "message": "ライト"
+  },
+  "dark": {
+    "message": "ダーク"
+  },
+  "system": {
+    "message": "システム"
+  },
+  "newPac": {
+    "message": "PAC追加"
+  },
+  "url": {
+    "message": "URL"
+  },
+  "text": {
+    "message": "テキスト"
+  },
+  "displayAsIconTooltip": {
+    "message": "アイコン表示"
+  },
+  "displayAsListTooltip": {
+    "message": "リスト表示"
+  },
+  "sortByNone": {
+    "message": "標準"
+  },
+  "sortByRecent": {
+    "message": "最後に選んだ順"
+  },
+  "sortByAlphabet": {
+    "message": "アルファベット順"
+  },
+  "createPacConfiguration": {
+    "message": "PAC設定追加"
+  },
+  "editPacConfiguration": {
+    "message": "PAC設定変更"
+  }
+}

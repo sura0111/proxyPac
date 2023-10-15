@@ -1,0 +1,30 @@
+{
+  "search.exclude": {
+    "**/.yarn": true,
+  },
+  "files.exclude": {
+    "**/.ruby-lsp": false,
+    "dist": false,
+    ".yarn": false,
+    "node_modules": false,
+    "artifacts": false
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["manifest.json"],
+      "url": "https://json.schemastore.org/chrome-manifest.json"
+    }
+  ],
+  "eslint.workingDirectories": [
+    "./"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "stylelint.stylelintPath": "./node_modules/stylelint",
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "vue"
+  ]
+}

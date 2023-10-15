@@ -1,0 +1,14 @@
+{
+  "name": "@packages/core",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "yarn g:lint"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.246",
+    "@types/node": "^20.8.2",
+    "detect-browser": "^5.3.0",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@packages/popup",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "yarn g:lint"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.2.96",
+    "@packages/core": "workspace:^",
+    "@tiptap/extension-code-block-lowlight": "^2.1.12",
+    "@tiptap/extension-document": "^2.1.12",
+    "@tiptap/extension-placeholder": "^2.1.12",
+    "@tiptap/extension-text": "^2.1.12",
+    "@tiptap/pm": "^2.1.12",
+    "@tiptap/starter-kit": "^2.1.12",
+    "@tiptap/vue-3": "^2.1.12",
+    "axios": "^1.5.1",
+    "highlight.js": "^11.8.0",
+    "lowlight": "^3.1.0",
+    "sass": "^1.69.1",
+    "tiptap": "^1.32.2",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.3.19"
+  }
+}

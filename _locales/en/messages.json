@@ -1,0 +1,62 @@
+{
+  "appName": {
+    "message": "Proxy Pac Switcher"
+  },
+  "appDescription": {
+    "message": "This extensions simplifies the process of setting up a proxy."
+  },
+  "tabSwitcher": {
+    "message": "Switcher"
+  },
+  "tabSettings": {
+    "message": "Settings"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "display": {
+    "message": "Display"
+  },
+  "sort": {
+    "message": "Sort"
+  },
+  "systemDefault": {
+    "message": "System Default"
+  },
+  "light": {
+    "message": "Light"
+  },
+  "dark": {
+    "message": "Dark"
+  },
+  "system": {
+    "message": "System"
+  },
+  "newPac": {
+    "message": "New PAC | PAC URL"
+  },
+  "displayAsIconTooltip": {
+    "message": "Display as icon"
+  },
+  "displayAsListTooltip": {
+    "message": "Display as list"
+  },
+  "sortByNone": {
+    "message": "Sort by none"
+  },
+  "sortByRecent": {
+    "message": "Sort by recent"
+  },
+  "sortByAlphabet": {
+    "message": "Sort by alphabet"
+  },
+  "createPacConfiguration": {
+    "message": "Create PAC configuration"
+  },
+  "editPacConfiguration": {
+    "message": "Edit PAC configuration"
+  }
+}
