@@ -39,7 +39,7 @@ echo -e "\n"
 echo -e "-----------------------------------------"
 echo "[Release Process] Update workspace branch"
 echo -e "-----------------------------------------"
-git add -A
+git add package.json
 git commit -m "v$npm_package_version"
 git push --quiet
 echo -e "\n"
