@@ -26,13 +26,12 @@
       </div>
       <div class="pacConfig__fieldItem">
         <div class="pacConfig__label">Tag</div>
-        <VBtnToggle v-model="colorIndex" density="compact" class="pacConfig__colors" color="text-tertiary">
+        <VBtnToggle v-model="colorIndex" selected-class="pacConfig__colorButton--selected" density="compact" class="pacConfig__colors" color="tertiary">
           <VBtn
             v-for="(colorOption, id) in colorOptions"
             :key="id"
-            class="pacConfig__color"
+            class="pacConfig__colorButton"
             icon
-            @click="color = colorOption"
           >
             <VAvatar :class="`color__${colorOption ?? 'none'}`" size="20"></VAvatar>
           </VBtn>
@@ -94,7 +93,7 @@
 import { usePacConfigService, useTiptapService } from '@packages/popup/services'
 import { EditorContent } from '@tiptap/vue-3'
 import { computed, ref, watch } from 'vue'
-import { PacType, colors, dictionary } from '@packages/popup/constants'
+import { PacType, bannerHeight, colors, dictionary } from '@packages/popup/constants'
 import { type Pac } from '@packages/popup/types'
 import { VForm } from 'vuetify/lib/components/index.mjs'
 import { isUrl } from '@packages/popup/lib'
@@ -206,7 +205,8 @@ watch(pacType, () => {
 
 <style lang="scss" scoped>
 .pacConfig {
-  margin-bottom: 40px;
+  /* stylelint-disable-next-line value-keyword-case */
+  margin-bottom: calc(v-bind(bannerHeight) + 40px);
 
   &__editor {
     :deep(> .tiptap:focus) {
@@ -243,14 +243,14 @@ watch(pacType, () => {
       flex-wrap: wrap;
       align-items: center;
     }
-
-    &Item + &Item {
-      padding-left: 24px;
-    }
   }
 
   &__field + &__field {
     margin-top: 12px;
+  }
+
+  &__fieldItem + &__fieldItem {
+    padding-left: 24px;
   }
 
   &__input {
@@ -268,17 +268,22 @@ watch(pacType, () => {
 
   &__colors {
     height: 32px;
+  }
 
-    .pacConfig__color {
-      width: 32px;
-      padding: 0;
-      border-radius: 100%;
+  .pacConfig__colorButton {
+    width: 32px;
+    padding: 0;
+    border-radius: 100%;
+
+    &--selected {
+      border: 2px solid rgb(var(--v-theme-primary));
     }
   }
 
   &__actions {
     position: fixed;
-    bottom: 0;
+    /* stylelint-disable-next-line value-keyword-case */
+    bottom: calc(v-bind(bannerHeight) + 12px);
     left: 0;
     display: flex;
     align-items: center;

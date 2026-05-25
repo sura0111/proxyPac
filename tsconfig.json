@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "resolvePackageJsonExports": false,
     "allowJs": true,
     "noImplicitAny": false,
     "strict": true,
@@ -25,13 +23,8 @@
     "**/*.json",
     "**/*.ts",
     "**/*.vue",
-    "packages/**/*.cjs",
-    "packages/**/*.js",
-    "packages/**/*.json",
-    "packages/**/*.ts",
-    "packages/**/*.vue",
-    "./.eslintrc.cjs",
+    "./eslint.config.js",
     "./.prettierrc.json"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist", "artifacts"]
 }
