@@ -1,6 +1,6 @@
 {
   "appName": { "message": "プロキシーPACスイッチャー" },
-  "appDescription": { "message": "プロキシ設定を簡略化するツールです。" },
+  "appDescription": { "message": "複数のプロキシ自動構成（PAC）プロファイルをワンクリックで保存・切り替え。タグ付け・並び替えで無制限に管理できます。" },
   "tabSwitcher": { "message": "スイッチャー" },
   "tabSettings": { "message": "設定" },
   "save": { "message": "保存" },
