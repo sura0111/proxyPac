@@ -11,11 +11,5 @@ export default defineConfig({
     hmr: {
       clientPort: 5173,
     },
-    proxy: {
-      '/proxy': {
-        target: 'http://stg-m.keiba.rakuten.co.jp',
-        changeOrigin: true,
-      },
-    },
   },
 })

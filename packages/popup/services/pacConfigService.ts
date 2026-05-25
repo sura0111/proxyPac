@@ -45,7 +45,7 @@ export const usePacConfigService = async () => {
         try {
           const promisedPacValue = await pacService.getPacValue(pacRawValue.value)
           pacViewValue.value = promisedPacValue.trim()
-        } catch (error) {
+        } catch {
           isFailedFetchingPacView.value = true
         }
         isRetrievingPacView.value = false

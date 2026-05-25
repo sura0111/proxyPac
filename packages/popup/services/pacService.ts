@@ -9,14 +9,13 @@ import { computed } from 'vue'
 import { useDisplayOptionsService } from './displayOptionsService'
 
 export const usePacService = async () => {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-  const defaultPac: Pac = { name: null } as Pac
+  const defaultPac: Pac = { name: null }
   const { displayType, sortType } = useDisplayOptionsService()
   const pacs = await createReactiveBrowserStorage(BrowserStorageKey.pacs, {
     defaultValue: [] as Pac[],
   })
 
-  const pac = await createReactiveBrowserStorage(BrowserStorageKey.pac, { defaultValue: defaultPac })
+  const pac = await createReactiveBrowserStorage<BrowserStorageKey.pac, Pac>(BrowserStorageKey.pac, { defaultValue: defaultPac })
 
   const sortedPacs = computed(() => {
     const sortBy = sortType.value

@@ -17,14 +17,6 @@
     "exactOptionalPropertyTypes": true,
     "newLine": "lf"
   },
-  "include": [
-    "**/*.cjs",
-    "**/*.js",
-    "**/*.json",
-    "**/*.ts",
-    "**/*.vue",
-    "./eslint.config.js",
-    "./.prettierrc.json"
-  ],
+  "include": ["**/*.cjs", "**/*.js", "**/*.json", "**/*.ts", "**/*.vue", "./.prettierrc.json"],
   "exclude": ["node_modules", "dist", "artifacts"]
 }
