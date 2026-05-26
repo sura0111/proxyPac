@@ -5,6 +5,7 @@
         <vTab v-for="(tabEnum, id) in tabs" :key="id" class="pacSwitcher__tab">{{ tabNames[tabEnum] }}</vTab>
       </vTabs>
       <VSpacer></VSpacer>
+      <IpIndicator class="mr-2"></IpIndicator>
       <div>
         <vMenu location="bottom">
           <template #activator="{ props }">
@@ -40,7 +41,7 @@
         </template>
       </Suspense>
     </vMain>
-    <vFooter class="pacSwitcher__footer" :height="bannerHeightNumber + 12" color="#F9F1C0">
+    <vFooter class="pacSwitcher__footer" :height="bannerHeightNumber + 12" color="rgb(249 241 192 / 52%)">
       <Banner class="pacSwitcher__banner">
         <template #text>
           {{ dictionary.bannerTextLabel }}
@@ -60,6 +61,7 @@ import { tabNames } from './config/tabs'
 import { themeConfigs } from '@packages/popup/config'
 import { dictionary, bannerUrl, bannerHeight, bannerHeightNumber } from '@packages/popup/constants'
 import Banner from '@packages/popup/components/banner.vue'
+import IpIndicator from '@packages/popup/components/ipIndicator.vue'
 
 const { openGithub, tab, tabs } = usePopupService()
 const { currentTheme, loadTheme } = useThemeService()

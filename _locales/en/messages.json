@@ -20,5 +20,6 @@
   "createPacConfiguration": { "message": "Create PAC configuration" },
   "editPacConfiguration": { "message": "Edit PAC configuration" },
   "bannerTextLabel": { "message": "Need residential proxies? Try BirdProxies." },
-  "bannerActionsLabel": { "message": "Get Offer" }
+  "bannerActionsLabel": { "message": "Get Offer" },
+  "pacValidationFailed": { "message": "PAC validation failed" }
 }

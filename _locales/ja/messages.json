@@ -22,5 +22,6 @@
   "createPacConfiguration": { "message": "PAC設定追加" },
   "editPacConfiguration": { "message": "PAC設定変更" },
   "bannerTextLabel": { "message": "レジデンシャルプロキシならBirdProxies" },
-  "bannerActionsLabel": { "message": "特典を見る" }
+  "bannerActionsLabel": { "message": "特典を見る" },
+  "pacValidationFailed": { "message": "PAC検証エラー" }
 }

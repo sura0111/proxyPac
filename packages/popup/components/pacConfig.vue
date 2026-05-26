@@ -5,6 +5,15 @@
     class="pacConfig"
     @submit.prevent="onSubmit({ name, value: pacValue, color, type: pacType })"
   >
+    <VAlert
+      v-if="submissionError"
+      type="error"
+      density="compact"
+      class="pacConfig__error"
+      :text="submissionError"
+      closable
+      @click:close="submissionError = null"
+    ></VAlert>
     <div class="pacConfig__field">
       <div class="pacConfig__label">Name</div>
       <VTextField
@@ -67,7 +76,8 @@
         class="mr-1 pacConfig__button--important"
         color="primary"
         variant="flat"
-        :disabled="!isValid || !isFormValid"
+        :disabled="!isValid || !isFormValid || isSubmitting"
+        :loading="isSubmitting"
         type="submit"
       >
         {{ dictionary.save }}
@@ -90,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePacConfigService, useTiptapService } from '@packages/popup/services'
+import { usePacConfigService, useTiptapService, validateAndApplyPac } from '@packages/popup/services'
 import { EditorContent } from '@tiptap/vue-3'
 import { computed, ref, watch } from 'vue'
 import { PacType, bannerHeight, colors, dictionary } from '@packages/popup/constants'
@@ -186,12 +196,26 @@ const isValid = computed(() => {
   return name.value && pacValue.value && (isEditMode || !hasPac(name.value.trim()))
 })
 
-const onSubmit = (pac: Pac | { name: string }) => {
+const submissionError = ref<string | null>(null)
+const isSubmitting = ref(false)
+
+const onSubmit = async (pac: Pac | { name: string }) => {
   if (!isValid.value) {
     return
   }
 
-  emit('update:pac', pac)
+  submissionError.value = null
+  isSubmitting.value = true
+  try {
+    const result = await validateAndApplyPac(pacValue.value)
+    if (!result.ok) {
+      submissionError.value = result.error
+      return
+    }
+    emit('update:pac', pac)
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 const onCancel = () => {
@@ -207,6 +231,10 @@ watch(pacType, () => {
 .pacConfig {
   /* stylelint-disable-next-line value-keyword-case */
   margin-bottom: calc(v-bind(bannerHeight) + 40px);
+
+  &__error {
+    margin: 0 0 12px;
+  }
 
   &__editor {
     :deep(> .tiptap:focus) {

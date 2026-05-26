@@ -15,7 +15,8 @@
     "noUnusedParameters": false,
     "resolveJsonModule": true,
     "exactOptionalPropertyTypes": true,
-    "newLine": "lf"
+    "newLine": "lf",
+    "noEmit": true
   },
   "include": ["**/*.cjs", "**/*.js", "**/*.json", "**/*.ts", "**/*.vue", "./.prettierrc.json"],
   "exclude": ["node_modules", "dist", "artifacts"]
