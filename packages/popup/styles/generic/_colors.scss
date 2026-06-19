@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use '../variables' as *;
+
 .pacSwitcher {
   .color__none {
     position: relative;

@@ -1,0 +1,22 @@
+{
+  "folders": [
+    { "path": "." },
+    { "path": "packages/popup" },
+    { "path": "packages/background" },
+    { "path": "packages/core" }
+  ],
+  "settings": {
+    "eslint.validate": ["vue", "typescript", "typescriptreact", "javascript", "javascriptreact"],
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/artifacts": true,
+      "**/.yarn": true,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true
+    }
+  }
+}

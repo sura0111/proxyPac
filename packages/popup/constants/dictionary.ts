@@ -21,4 +21,7 @@ export const dictionary = {
   sortByAlphabet: chrome.i18n.getMessage('sortByAlphabet'),
   createPacConfiguration: chrome.i18n.getMessage('createPacConfiguration'),
   editPacConfiguration: chrome.i18n.getMessage('editPacConfiguration'),
+  bannerTextLabel: chrome.i18n.getMessage('bannerTextLabel'),
+  bannerActionsLabel: chrome.i18n.getMessage('bannerActionsLabel'),
+  pacValidationFailed: chrome.i18n.getMessage('pacValidationFailed'),
 }

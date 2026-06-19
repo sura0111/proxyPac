@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
-    "resolvePackageJsonExports": false,
     "allowJs": true,
     "noImplicitAny": false,
     "strict": true,
@@ -17,21 +15,9 @@
     "noUnusedParameters": false,
     "resolveJsonModule": true,
     "exactOptionalPropertyTypes": true,
-    "newLine": "lf"
+    "newLine": "lf",
+    "noEmit": true
   },
-  "include": [
-    "**/*.cjs",
-    "**/*.js",
-    "**/*.json",
-    "**/*.ts",
-    "**/*.vue",
-    "packages/**/*.cjs",
-    "packages/**/*.js",
-    "packages/**/*.json",
-    "packages/**/*.ts",
-    "packages/**/*.vue",
-    "./.eslintrc.cjs",
-    "./.prettierrc.json"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["**/*.cjs", "**/*.js", "**/*.json", "**/*.ts", "**/*.vue", "./.prettierrc.json"],
+  "exclude": ["node_modules", "dist", "artifacts"]
 }

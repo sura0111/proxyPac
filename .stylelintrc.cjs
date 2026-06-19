@@ -10,9 +10,8 @@ module.exports = {
     'stylelint-config-recess-order',
     'stylelint-config-recommended-scss',
     'stylelint-config-recommended-vue',
-    'stylelint-config-prettier',
   ],
-  plugins: ['stylelint-prettier', 'stylelint-scss', 'stylelint-order'],
+  plugins: ['stylelint-scss', 'stylelint-order'],
   rules: {
     'import-notation': null,
     'color-hex-length': 'long',

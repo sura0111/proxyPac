@@ -1,10 +1,21 @@
 import { isUrl } from '@packages/popup/lib'
 
-export const setProxy = async (pac?: string): Promise<void> => {
-  await new Promise<void>((resolve) => {
+export type SetProxyResult = { ok: true } | { ok: false, error: string }
+
+export const setProxy = async (pac?: string): Promise<SetProxyResult> => {
+  return new Promise<SetProxyResult>((resolve) => {
+    const finish = () => {
+      const lastError = chrome.runtime.lastError
+      if (lastError) {
+        resolve({ ok: false, error: lastError.message ?? 'Unknown chrome.proxy error' })
+        return
+      }
+      resolve({ ok: true })
+    }
+
     try {
       if (!pac) {
-        chrome.proxy.settings.clear({ scope: 'regular' }, resolve)
+        chrome.proxy.settings.clear({ scope: 'regular' }, finish)
         return
       }
 
@@ -18,11 +29,10 @@ export const setProxy = async (pac?: string): Promise<void> => {
             },
           },
         },
-        resolve,
+        finish,
       )
     } catch (error) {
-      console.error(error)
-      resolve()
+      resolve({ ok: false, error: error instanceof Error ? error.message : String(error) })
     }
   })
 }

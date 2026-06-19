@@ -1,4 +1,4 @@
-import { createRouter, createMemoryHistory } from 'vue-router'
+import { createRouter, createMemoryHistory, type RouteRecordName } from 'vue-router'
 import { PageName } from '@packages/popup/constants/page'
 import { Index, Settings, AddPac, EditPac } from '@packages/popup/pages'
 

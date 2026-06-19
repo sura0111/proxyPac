@@ -12,7 +12,7 @@
           >
             <VItem v-slot="{ isSelected, toggle }">
               <VBadge
-                :model-value="isSelected"
+                :model-value="isSelected ?? false"
                 class="switcher__badge"
                 offset-x="32"
                 offset-y="-4"
